@@ -1,0 +1,17 @@
+.navbar {
+    height: 128px;
+}
+
+.fas {
+    width: 64px;
+    font-size: 34px;
+}
+
+.camposLocalizacao {
+    display: none;
+}
+
+.alertify-notifier.ajs-right .ajs-message.ajs-visible {
+    color: #fff;
+    font-weight: bold;
+}

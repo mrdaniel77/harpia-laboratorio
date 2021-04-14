@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Colaborador;
+use App\Http\Requests\ColaboradorRequest;
 
 class ColaboradorController extends Controller
 {
@@ -15,7 +16,7 @@ class ColaboradorController extends Controller
         }else {
             $colaboradores = Colaborador::paginate(10);
         }
-        return view('colaboradores.index', compact('colaboradores'));
+        return view('colaboradores.index', compact('colaboradores', 'pesquisa'));
     }
 
     public function novo(){
@@ -27,7 +28,10 @@ class ColaboradorController extends Controller
         return view('colaboradores.form', compact('colaborador'));
     }
 
-    public function salvar(Request $request){
+    public function salvar(ColaboradorRequest $request){
+        
+        $ehValido = $request->validated();
+
         if($request->id != ''){
             $colaborador = Colaborador::find($request->id);
             $colaborador->update($request->all());
