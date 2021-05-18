@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">{{ isset($fornecedor) ? 'Editar' : 'Novo' }}Fornecedor</h1>
+            <h1 class="m-0">{{ isset($fornecedor) ? 'Editar' : 'Novo ' }}Fornecedor</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -146,6 +146,12 @@
         </div>   
     </div>
     <div class="row">
+        <div class="col">
+            <a href="/fornecedores/novo" class="btn btn-primary">
+                Novo fornecedor 
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
         <div class="col" align="end">
             <button type="submit" class="btn btn-success w-25 hover-shadow">
                 Salvar 

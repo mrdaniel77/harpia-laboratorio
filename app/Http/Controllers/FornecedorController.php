@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\FornecedorRequest;
+use App\Http\Requests\FornecedoresRequest;
 use App\Models\Fornecedor;
 
 class FornecedorController extends Controller
 {
-    public $tipos = ['servico', 'produto'];
+    public $tipos = ['Servico', 'Produto'];
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
         
         if($pesquisa != '') {
-            $fornecedores = Fornecedor::where('nome', 'like', "%".$pesquisa."%")->paginate(1000);
+            $fornecedores = Fornecedor::where('razao_social', 'like', "%".$pesquisa."%")->paginate(1000);
         } else {
             $fornecedores = Fornecedor::paginate(10);
         }

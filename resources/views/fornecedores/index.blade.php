@@ -55,11 +55,12 @@
                 <tr>
                   <th scope="col">#</th>
                   
-                  <th>tipo</th>
-                  <th>cnpj</th>
-                  <th>razao_social</th>
-                  <th>telefone</th>
-                  <th>email</th>
+                  <th>Tipo</th>
+                  <th>Cnpj</th>
+                  <th>Razao Social</th>
+                  <th>Telefone</th>
+                  <th>Email</th>
+                  <th>Editar/Deletar</th>
                 </tr>
               </thead>
               @foreach ($fornecedores as $item)
