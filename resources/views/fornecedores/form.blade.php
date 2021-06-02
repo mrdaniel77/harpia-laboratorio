@@ -88,8 +88,8 @@
     <div class="row">
         <div class="col-5">
             <div class="form-group">
-                <label for="nome_contato" class="form-label">Nome do contato:</label>
-                <input type="text" name="nome_contato" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->nome_contato}}@else{{ old('nome_contato')}}@endif">
+                <label for="nome_do_contato" class="form-label">Nome do contato:</label>
+                <input type="text" name="nome_do_contato" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->nome_do_contato}}@else{{ old('nome_do_contato')}}@endif">
             </div>
         </div>
         <div class="col-5">
@@ -146,7 +146,7 @@
         </div>   
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col ">
             <a href="/fornecedores/novo" class="btn btn-primary">
                 Novo fornecedor 
                 <i class="fas fa-plus"></i>
@@ -160,9 +160,7 @@
         </div>
     </div>
   </form>
-
-</div>
-         
+</div>         
 </div>
 <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->

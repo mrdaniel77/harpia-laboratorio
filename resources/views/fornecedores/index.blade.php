@@ -48,6 +48,7 @@
               </form>
             </div>
           </div>
+          
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <table class="table table-hover text-nowrap table-bordered ">
@@ -63,6 +64,7 @@
                   <th>Editar/Deletar</th>
                 </tr>
               </thead>
+              
               @foreach ($fornecedores as $item)
               <tbody>
                 <tr>
@@ -84,6 +86,9 @@
               </tbody>
               @endforeach
             </table>
+              @if(count($fornecedores) < 1) 
+                <div class="alert alert-info">Nenhum registro encontrado</div>
+              @endif
           </div>
           <!-- /.card-body -->
         </div>
@@ -94,7 +99,7 @@
   </div>
 
   <!-- /.row (main row) -->
-</div><!-- /.container-fluid -->
+</div><!-- /.container-fl uid -->
 </section>
 <!-- /.content -->
 </div>
