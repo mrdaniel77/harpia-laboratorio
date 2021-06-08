@@ -8,21 +8,16 @@ use App\Models\Fornecedor;
 
 class FornecedorController extends Controller
 {
-<<<<<<< HEAD
+
     public $tipos = ['Servico', 'Produto'];
-=======
-    public $tipos = ['servico', 'produto' ];
->>>>>>> dde2f0f5b8dfbe99532e938b2a938954ee04777e
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
         
         if($pesquisa != '') {
-<<<<<<< HEAD
+
             $fornecedores = Fornecedor::where('razao_social', 'like', "%".$pesquisa."%")->paginate(1000);
-=======
-            $fornecedores = Fornecedor::where('metodos_definidos', 'like', "%".$pesquisa."%")->paginate(1000);
->>>>>>> dde2f0f5b8dfbe99532e938b2a938954ee04777e
+
         } else {
             $fornecedores = Fornecedor::paginate(10);
         }

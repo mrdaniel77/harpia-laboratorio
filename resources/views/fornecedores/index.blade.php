@@ -86,18 +86,14 @@
               </tbody>
               @endforeach
             </table>
-<<<<<<< HEAD
-              @if(count($fornecedores) < 1) 
-                <div class="alert alert-info">Nenhum registro encontrado</div>
-              @endif
-=======
+
             <br>
             @if(count($fornecedores) < 1)
             <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
               Nenhum registro encontrado!
             </div>
             @endif
->>>>>>> dde2f0f5b8dfbe99532e938b2a938954ee04777e
+
           </div>
           <!-- /.card-body -->
         </div>
