@@ -38,7 +38,6 @@ class EquipamentosSeeder extends Seeder
             'fabricante' => $faker->name(),
             'fornecedor' => $faker->name(),
             'localizacao_equipamento' => $faker->name()
-
       ]
 
       ]);

@@ -55,10 +55,8 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th>N°</th>
                   <th>Setor</th>
                   <th>Nome</th>
-                  <th>Assinatura</th>
                   <th>Opções</th>
                 </tr>
               </thead>
@@ -66,15 +64,13 @@
               <tbody>
                 <tr>
                     <td>{{ $item->id }}</td>
-                    <td>{{ $item->numero }}</td>
                     <td>{{ $item->setor }}</td>
                     <td>{{ $item->nome }}</td>
-                    <td>{{ $item->assinatura }}</td>
                     <td>
                       <a href="participantes_treinamento/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="participantes_treinamento/deletar/{{ $item->id }}" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
+                      <a href="#" class="btn btn-danger" onclick="deleta('/participantes_treinamento/deletar/{{ $item->id }}')">
                         <i class="fas fa-trash"></i>
                       </a>
 
@@ -84,6 +80,12 @@
               </tbody>
               @endforeach
             </table>
+            <br>
+            @if(count($participantes_treinamento) < 1)
+              <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
+              Nenhum registro encontrado!
+              </div>
+            @endif
           </div>
           <!-- /.card-body -->
         </div>

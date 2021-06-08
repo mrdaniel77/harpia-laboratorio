@@ -68,17 +68,25 @@
               <tbody>
                 <tr>
                     <td>{{ $item->id }}</td>
+<<<<<<< HEAD:resources/views/acoes_propostas/index.blade.php
                     <td>{{ $item->acao }}</td>
                     <td>{{ $item->responsavel }}</td>
                     <td>{{ $item->prazo }}</td>
                     <td>{{ $item->prazo_final }}</td>
                     <td>{{ $item->necessario_prorrogacao }}</td>
                     <td>{{ $item->data_encerramento }}</td>
+=======
+                    <td>{{ $item->equipamento }}</td>
+                    <td>{{ $item->marca }}</td>
+                    <td>{{ $item->modelo }}</td>
+                    <td>{{ $item->fabricante }}</td>
+                    <td>{{ $item->fornecedor->razao_social }}</td>
+>>>>>>> 28d920a187d56c4018474835ac2699507944170b:resources/views/equipamentos_medicao/index.blade.php
                     <td>
                       <a href="acoes_propostas/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="acoes_propostas/deletar/{{ $item->id }}" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
+                      <a href="#" class="btn btn-danger" onclick="deleta('/acoes_propostas/deletar/{{ $item->id }}')">
                         <i class="fas fa-trash"></i>
                       </a>
 
@@ -88,7 +96,14 @@
               </tbody>
               @endforeach
             </table>
+            <br>
+            @if(count($acoes_propostas) < 1)
+            <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
+              Nenhum registro encontrado!
+            </div>
+            @endif
           </div>
+          
           <!-- /.card-body -->
         </div>
   <div class="row">

@@ -10,58 +10,53 @@ use App\Models\Setor;
 
 class EquipamentoController extends Controller
 {  
+        public $equipamento_proprio = ['Sim','não'];
+        public $tensao = ['110','220','bivolt'];
+        public $manual = ['Sim','Não'];
 
         public function index(Request $request) {
         $pesquisa = $request->pesquisa;
 
         if($pesquisa != '') {
-        $equipamentos = Equipamentos::where('equipamento', 'like', "%".$pesquisa."%")->paginate(1000);
+        $equipamentos = Equipamentos::where('equipamento', 'like', "%".$pesquisa."%")
+                                      ->orWhere('marca', 'like', "%".$pesquisa."%")
+                                      ->orWhere('modelo', 'like', "%".$pesquisa."%")
+                                      ->orWhere('fabricante', 'like', "%".$pesquisa."%")
+                                      ->orWhere('fornecedor', 'like', "%".$pesquisa."%")->paginate(1000);
 
+        
         } else {
-        $equipamentos = Equipamentos::paginate(10);
+        $equipamentos = Equipamentos::with('fornecedor')->paginate(10);
         }
         return view('equipamentos.index', compact('equipamentos', 'pesquisa'));
-} 
+    }
         public function novo() {
-            $fornecedores = Fornecedor::select('razao_social')->get();
 
-            $setores = Setor::select('setor')->get();
+            $fornecedores = Fornecedor::select('id','razao_social')->get();
+            $setor = Setor::select('id','setor')->get();
+            $equipamento_proprio = $this->equipamento_proprio;
+            $tensao = $this->tensao;
+            $manual = $this->manual;
 
-            $equipamento_proprio = Equipamentos::select('equipamento_proprio')
-            ->groupBy('equipamento_proprio')
-            ->get();
-            $tensao = Equipamentos::select('tensao')
-            ->groupBy('tensao')
-            ->get();
-            $manual = Equipamentos::select('manual')
-
-            ->groupBy('manual')
-            ->get();
-        return view('equipamentos.form', compact('equipamento_proprio', 'tensao', 'manual', 'fornecedores', 'setores'));
+        return view('equipamentos.form', compact('equipamento_proprio', 'tensao', 'manual', 'fornecedores', 'setor'));
         }
         public function editar($id) {
 
-            $fornecedores = Fornecedor::select('razao_social')->get();
-
-            $setores = Setor::select('setor')->get();
-
             $equipamentos = Equipamentos::find($id);
-            $equipamento_proprio = Equipamentos::select('equipamento_proprio')
-                                    ->groupBy('equipamento_proprio')
-                                    ->get();
-            $tensao = Equipamentos::select('tensao')
-                                    ->groupBy('tensao')
-                                    ->get();
-            $manual = Equipamentos::select('manual')
-                                    ->groupBy('manual')
-                                    ->get();
-            return view('equipamentos.form', compact('equipamentos', 'equipamento_proprio', 'tensao', 'manual', 'fornecedores', 'setores'));
+            $fornecedores = Fornecedor::select('id','razao_social')->get();
+            $setor = Setor::select('id','setor')->get();
+            $equipamento_proprio = $this->equipamento_proprio;
+            $tensao = $this->tensao;
+            $manual = $this->manual;
+
+            return view('equipamentos.form', compact('equipamentos', 'equipamento_proprio', 'tensao', 'manual', 'fornecedores', 'setor'));
         }
         public function salvar(EquipamentoRequest $request) {
 
-            $ehvalido = $request->validated();
-
             if($request->id != '') {
+
+                $ehvalido = $request->validated();
+                
                 $equipamentos = Equipamentos::find($request->id);
                 $equipamentos->update($request->all());
             } else {

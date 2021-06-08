@@ -80,7 +80,7 @@
                       <a href="novo_rnc/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="novo_rnc/deletar/{{ $item->id }}" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
+                      <a href="#" class="btn btn-danger" onclick="deleta('/novo_rnc/deletar/{{ $item->id }}')">
                         <i class="fas fa-trash"></i>
                       </a>
 
@@ -90,6 +90,12 @@
               </tbody>
               @endforeach
             </table>
+            <br>
+            @if(count($novo_rnc) < 1)
+            <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
+              Nenhum registro encontrado!
+            </div>
+            @endif
           </div>
           <!-- /.card-body -->
         </div>

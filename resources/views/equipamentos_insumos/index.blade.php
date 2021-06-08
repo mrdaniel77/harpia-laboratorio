@@ -68,15 +68,15 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nome }}</td>
-                    <td>{{ $item->código }}</td>
+                    <td>{{ $item->codigo }}</td>
                     <td>{{ $item->quantidade }}</td>
                     <td>{{ $item->fabricante }}</td>
-                    <td>{{ $item->fornecedor }}</td>
+                    <td>{{ $item->fornecedor->razao_social }}</td>
                     <td>
                       <a href="equipamentos_insumos/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="equipamentos_insumos/deletar/{{ $item->id }}" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
+                      <a href="#" class="btn btn-danger" onclick="deleta('/equipamentos_insumos/deletar/{{ $item->id }}')">
                         <i class="fas fa-trash"></i>
                       </a>
 
@@ -86,6 +86,12 @@
               </tbody>
               @endforeach
             </table>
+            <br>
+            @if(count($equipamentos_insumos) < 1)
+            <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
+              Nenhum registro encontrado!
+            </div>
+            @endif
           </div>
           <!-- /.card-body -->
         </div>

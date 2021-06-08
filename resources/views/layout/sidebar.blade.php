@@ -23,6 +23,17 @@
         </div>
       </div>
 
+
+      {{-- <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-fw fa-search"></i>
+            </button>
+          </div>
+        </div><div class="sidebar-search-results"><div class="list-group"><a href="#" class="list-group-item"><div class="search-title"><strong class="text-light"></strong>N<strong class="text-light"></strong>o<strong class="text-light"></strong> <strong class="text-light"></strong>e<strong class="text-light"></strong>l<strong class="text-light"></strong>e<strong class="text-light"></strong>m<strong class="text-light"></strong>e<strong class="text-light"></strong>n<strong class="text-light"></strong>t<strong class="text-light"></strong> <strong class="text-light"></strong>f<strong class="text-light"></strong>o<strong class="text-light"></strong>u<strong class="text-light"></strong>n<strong class="text-light"></strong>d<strong class="text-light"></strong>!<strong class="text-light"></strong></div><div class="search-path"></div></a></div></div>
+      </div> --}}
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -45,23 +56,23 @@
               </p>
             </a>
           </li> --}}
-          <li class="nav-item">
+          <li class="nav-item ">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
+              <i class="nav-icon fas fa-chalkboard-teacher"></i>
               <p>
-                Clientes
+                Ações Propostas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/clientes/novo" class="nav-link">
+                <a href="/acoes_propostas/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/clientes" class="nav-link">
+                <a href="/acoes_propostas" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -70,21 +81,21 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user-friends"></i>
+              <i class="nav-icon fas fa-exclamation-circle"></i>
               <p>
-                Colaboradores
+                Análise Crítica de Pedidos, Propostas e Contratos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/colaboradores/novo" class="nav-link">
+                <a href="/analise_critica/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/colaboradores" class="nav-link">
+                <a href="/analise_critica" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -93,256 +104,21 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-copy"></i>
+              <i class="nav-icon fas fa-clipboard-check"></i>
               <p>
-                Documentos Externos
+                Inspeção de Recebido
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/documentos_externos/novo" class="nav-link">
+                <a href="/inspecao_recebidos/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/documentos_externos" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Documentos Internos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/documentos_internos/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/documentos_internos" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-vial"></i>
-              <p>
-                Equipamentos Medição
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/equipamentos/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/equipamentos" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-dolly-flatbed"></i>
-              <p>
-                Fornecedores
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/fornecedores/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/fornecedores" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-toolbox"></i>
-              <p>
-                Serviços
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/servicos/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/servicos" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-vial"></i>
-              <p>
-                Equipamentos Insumos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/equipamentos_insumos/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/equipamentos_insumos" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-check-double"></i>
-              <p>
-                Procedimentos
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/procedimento/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/procedimento" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>
-                Setores
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/setores/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/setores" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>
-                Lista Mestra
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/lista_mestras/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/lista_mestras" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          
-           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                Usuários
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/user/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/user" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listar</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-         
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-               Reclamações e Sugestões
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/reclamacoes/novo" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Novo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/reclamacoes" class="nav-link">
+                <a href="/inspecao_recebidos" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -353,19 +129,19 @@
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-clipboard"></i>
               <p>
-                Registro Treinamento
+                 RNC
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/registro_treinamento/novo" class="nav-link">
+                <a href="/novo_rnc/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/registro_treinamento" class="nav-link">
+                <a href="/novo_rnc" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -395,50 +171,23 @@
               </li>
             </ul>
           </li>
-       
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-user"></i>
-            <p>
-              Registro de Ocorrencias
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="/registro_de_ocorrencia/novo" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Novo</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/registro_de_ocorrencia" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Listar</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-  
-        
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon far fa-clipboard"></i>
+              <i class="nav-icon fas fa-check-double"></i>
               <p>
-                Novo RNC
+                Procedimentos
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/novo_rnc/novo" class="nav-link">
+                <a href="/procedimento/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/novo_rnc" class="nav-link">
+                <a href="/procedimento" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -447,21 +196,21 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-file-signature"></i>
               <p>
-                Ações Propostas
+                Registro de Ocorrencias
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/acoes_propostas/novo" class="nav-link">
+                <a href="/registro_de_ocorrencia/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/acoes_propostas" class="nav-link">
+                <a href="/registro_de_ocorrencia" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -470,21 +219,21 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-exclamation-triangle"></i>
               <p>
-                Cargo
+               Reclamações e Sugestões
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/cargos/novo" class="nav-link">
+                <a href="/reclamacoes/novo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Novo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/cargos" class="nav-link">
+                <a href="/reclamacoes" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Listar</p>
                 </a>
@@ -493,9 +242,32 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-file-prescription"></i>
               <p>
-               Temperatura
+                Registro Treinamento
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/registro_treinamento/novo" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Novo</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/registro_treinamento" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listar</p>
+                </a>
+              </li>
+            </ul>
+          </li>       
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-temperature-low"></i>
+              <p>
+                Temperatura
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

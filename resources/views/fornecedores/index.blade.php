@@ -78,7 +78,7 @@
                       <a href="fornecedores/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="fornecedores/deletar/{{ $item->id }}" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
+                      <a href="#" class="btn btn-danger" onclick="deleta('/fornecedores/deletar/{{ $item->id }}')">
                         <i class="fas fa-trash"></i>
                       </a>
                     </td>
@@ -86,9 +86,18 @@
               </tbody>
               @endforeach
             </table>
+<<<<<<< HEAD
               @if(count($fornecedores) < 1) 
                 <div class="alert alert-info">Nenhum registro encontrado</div>
               @endif
+=======
+            <br>
+            @if(count($fornecedores) < 1)
+            <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
+              Nenhum registro encontrado!
+            </div>
+            @endif
+>>>>>>> dde2f0f5b8dfbe99532e938b2a938954ee04777e
           </div>
           <!-- /.card-body -->
         </div>
