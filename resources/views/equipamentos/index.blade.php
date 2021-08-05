@@ -56,10 +56,11 @@
                 <tr>
                   <th scope="col">#</th>
                   <th>Equipamento</th>
-                  <th>Marca</th>
+                  <th>Nome</th>
+                  <th>Quantidade</th>
                   <th>Modelo</th>
-                  <th>Fabricante</th>
-                  <th>Fornecedor</th>
+                  <th>Código</th>
+                  <th>Materiais</th>
                   <th>Ações</th>
                 </tr>
               </thead>
@@ -68,15 +69,16 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->equipamento }}</td>
-                    <td>{{ $item->marca }}</td>
+                    <td>{{ $item->nome }}</td>
+                    <td>{{ $item->quantidade }}</td>
                     <td>{{ $item->modelo }}</td>
-                    <td>{{ $item->fabricante }}</td>
-                    <td>{{ $item->fornecedor }}</td>
+                    <td>{{ $item->codigo }}</td>
+                    <td>{{ $item->materiais }}</td>
                     <td>
                       <a href="equipamentos/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="equipamentos/deletar/{{ $item->id }}" class="btn btn-danger" onclick="return confirm('Deseja realmente deletar?')">
+                      <a href="#" class="btn btn-danger" onclick="deleta('/equipamentos/deletar/{{ $item->id }}')">
                         <i class="fas fa-trash"></i>
                       </a>
 
@@ -86,6 +88,12 @@
               </tbody>
               @endforeach
             </table>
+            <br>
+            @if(count($equipamentos) < 1)
+              <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
+              Nenhum registro encontrado!
+              </div>
+            @endif
           </div>
           <!-- /.card-body -->
         </div>

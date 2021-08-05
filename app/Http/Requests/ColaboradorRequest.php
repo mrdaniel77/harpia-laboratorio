@@ -24,11 +24,11 @@ class ColaboradorRequest extends FormRequest
     public function rules()
     {
         return [
-                'nome'=> 'required',
-                'email'=> 'required | email',
-                'cpf'=> 'required',
-                'telefone'=> 'required',
-        ];
+            'nome' => 'required',
+            'email' => 'required',
+            'cpf' => 'required',
+            'telefone' => 'required',
+    ];
     }
 
     public function messages()
@@ -38,6 +38,6 @@ class ColaboradorRequest extends FormRequest
                 'email.required' => 'E-mail do Colaborador é obrigatório!',
                 'cpf.required' => 'CPF do Colaborador é obrigatório!',
                 'telefone.required' => 'telefone do Colaborador é obrigatório!',
-        ]
+        ];
     }
 }

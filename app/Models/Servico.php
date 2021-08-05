@@ -12,6 +12,7 @@ class Servico extends Model
         'descricao',
         'tipo_material',
         'tipo_servico',
-        'servico_critico'
+        'servico_critico',
+        'preco'
     ];
 }

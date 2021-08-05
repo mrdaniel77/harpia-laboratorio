@@ -13,7 +13,7 @@
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/colaboradores">Colaaboradores</a></li>
+                        <li class="breadcrumb-item"><a href="/colaboradores">Colaboradores</a></li>
                         <li class="breadcrumb-item active">{{ isset($colaboradores) ? 'Editar' : 'Novo' }}</li>
                     </ol>
                 </div>
@@ -31,6 +31,22 @@
           <!-- Main row -->
           <div class="row card">
             <div class="col card-body">
+                @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        @foreach($errors->all() as $error)
+                            {{ $error }}<br/>
+                        @endforeach
+                    </div>
+                @endif
+                @isset($colaborador)
+                    <a href="/colaboradores/novo" class="btn btn-primary">
+                        Novo Colaborador
+                        <i class="fas fa-plus"></i>
+                    </a>
+                @endisset
                 <form action="/colaboradores/salvar" method="POST">
                     @csrf
                     <input type="hidden" name="id" value="@if(isset($colaborador)){{$colaborador->id}}@else{{ old('id') }}@endif">
@@ -65,19 +81,19 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-outline">
-                                <label for="cep" class="form-label">CEP</label>
+                                <label for="cep" class="form-label">CEP:</label>
                                 <input type="text" name="cep" class="form-control cep" value="@if(isset($colaborador)){{$colaborador->cep}}@else{{ old('cep') }}@endif">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-outline">
-                                <label for="logradouro" class="form-label">Logradouro</label>
+                                <label for="logradouro" class="form-label">Logradouro:</label>
                                 <input type="text" name="logradouro" class="form-control" value="@if(isset($colaborador)){{$colaborador->logradouro}}@else{{ old('logradouro') }}@endif">
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="form-outline">
-                                <label for="numero" class="form-label">Numero</label>
+                                <label for="numero" class="form-label">Número:</label>
                                 <input type="number" name="numero" class="form-control" value="@if(isset($colaborador)){{$colaborador->numero}}@else{{ old('numero') }}@endif">
                             </div>
                         </div>
@@ -85,34 +101,56 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-outline">
-                                <label for="cidade" class="form-label">Cidade</label>
+                                <label for="cidade" class="form-label">Cidade:</label>
                                 <input type="text" name="cidade" class="form-control" value="@if(isset($colaborador)){{$colaborador->cidade}}@else{{ old('cidade') }}@endif">
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="form-outline">
-                                <label for="bairro" class="form-label">Bairro</label>
+                                <label for="bairro" class="form-label">Bairro:</label>
                                 <input type="text" name="bairro" class="form-control" value="@if(isset($colaborador)){{$colaborador->bairro}}@else{{ old('bairro') }}@endif">
                             </div>
                         </div>
                         <div class="col-3">
                             <div class="form-outline">
-                                <label for="uf" class="form-label">UF</label>
-                                <input type="text" name="uf" class="form-control" value="@if(isset($colaborador)){{$colaborador->uf}}@else{{ old('uf') }}@endif">
+                                <label for="uf" class="form-label">UF:</label>
+                                <input type="text" name="uf" class="form-control" maxlength="2" value="@if(isset($colaborador)){{$colaborador->uf}}@else{{ old('uf') }}@endif">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-outline">
-                                <label for="formacao" class="form-label">Formação</label>
+                                <label for="formacao" class="form-label">Formação:</label>
                                 <input type="text" name="formacao" class="form-control" value="@if(isset($colaborador)){{$colaborador->formacao}}@else{{ old('formacao') }}@endif">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-outline">
-                                <label for="funcao" class="form-label">Funcao:</label>
-                                <input type="text" name="funcao" class="form-control" readonly value="@if(isset($colaborador)){{$colaborador->funcao}}@else{{ old('funcao') }}@endif">
+                                <label for="funcao" class="form-label">Função:</label>
+                                <input type="text" name="funcao" class="form-control" value="@if(isset($colaborador)){{$colaborador->funcao}}@else{{ old('funcao') }}@endif">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="setor" class="form-label">Setor:</label>
+                                <select name="setor" id="setor" class="form-control">
+                                    <option value="">selecione</option>
+                                    @foreach ($setores as $key => $tipo)
+                                        <option class=" setor" value="{{$tipo->setor}}"@if(isset($colaborador) && $colaborador->setor == $tipo->setor) selected @elseif(old('setor') == $tipo->setor) selected @endif>{{$tipo->setor}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="foto:" class="form-label">Carregar Foto:</label>
+                                <input type="file" name="foto" class="form-control">
+                                @if(isset($colaborador) && $colaborador->foto != '')
+                                    <a href="{{ $colaborador->foto }}" target="_blank">Ver Foto</a>
+                                @endif
                             </div>
                         </div>
                     </div>
