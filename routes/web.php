@@ -29,6 +29,9 @@ use App\Http\Controllers\C_temperaturaController;
 use App\Http\Controllers\AcoesPropostasController;
 use App\Http\Controllers\RetornoController;
 use App\Http\Controllers\MapaControleRegistrosController;
+use App\Http\Controllers\IndiceDesempenhoController;
+use App\Http\Controllers\PlanoDesempenhoController;
+use App\Http\Controllers\Responsa_autoController;
 
 
 //reset senha
@@ -108,6 +111,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cargos/editar/{id}', [CargosController::class, 'editar'])->name('cargos.editar');
     Route::post('cargos/salvar', [CargosController::class, 'salvar'])->name('cargos.salvar');
     Route::get('/cargos/deletar/{id}', [CargosController::class, 'deletar'])->name('cargos.deletar');
+    Route::get('cargos/responsabilidades/{cargo}', [CargosController::class, 'responsabilidades'])->name('cargos.responsabilidades');
     
     Route::get('/reclamacoes', [ReclamacoesController::class, 'index'])->name('reclamacoes');
     Route::get('/reclamacoes/novo', [ReclamacoesController::class, 'novo'])->name('reclamacoes.novo');
@@ -183,6 +187,25 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/mapa_controle/exportar', [MapaControleRegistrosController::class, 'exportar'])->name('mapa_controle.exportar');
     Route::get('/mapa_controle/exportar_pdf', [MapaControleRegistrosController::class, 'exportar_pdf'])->name('mapa_controle.exportar_pdf');
+
+    Route::get('indice_desempenho', [IndiceDesempenhoController::class, 'index'])->name('indice_desempenho');
+    Route::get('indice_desempenho/novo', [IndiceDesempenhoController::class, 'novo'])->name('indice_desempenho.novo');
+    Route::get('indice_desempenho/editar/{id}', [IndiceDesempenhoController::class, 'editar'])->name('indice_desempenho.editar');
+    Route::post('indice_desempenho/salvar', [IndiceDesempenhoController::class, 'salvar'])->name('indice_desempenho.salvar');
+    Route::get('indice_desempenho/deletar/{id}', [IndiceDesempenhoController::class, 'deletar'])->name('indice_desempenho.deletar');
+
+    Route::get('plano_desempenho', [PlanoDesempenhoController::class, 'index'])->name('plano_desempenho');
+    Route::get('plano_desempenho/novo', [PlanoDesempenhoController::class, 'novo'])->name('plano_desempenho.novo');
+    Route::get('plano_desempenho/editar/{id}', [PlanoDesempenhoController::class, 'editar'])->name('plano_desempenho.editar');
+    Route::post('plano_desempenho/salvar', [PlanoDesempenhoController::class, 'salvar'])->name('plano_desempenho.salvar');
+    Route::get('plano_desempenho/deletar/{id}', [PlanoDesempenhoController::class, 'deletar'])->name('plano_desempenho.deletar');
+
+    Route::get('responsa_auto', [Responsa_autoController::class, 'index'])->name('responsa_auto');
+    Route::get('responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
+    Route::get('responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
+    Route::post('responsa_auto/salvar', [Responsa_autoController::class, 'salvar'])->name('responsa_auto.salvar');
+    Route::get('responsa_auto/deletar/{id}', [Responsa_autoController::class, 'deletar'])->name('responsa_auto.deletar');
+
 
 });
 
