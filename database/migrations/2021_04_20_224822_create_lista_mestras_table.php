@@ -16,7 +16,7 @@ class CreateListaMestrasTable extends Migration
         Schema::create('lista_mestras', function (Blueprint $table) {
             $table->id();
             $table->enum('tipo', ['Manual','Procedimento','Anexo','Instrução de uso/trabalho','Formulário'])->nullable();
-            $table->bigInteger('documento_id');
+            $table->bigInteger('documento_id')->nullable();
             $table->string('codigo', 15)->nullable();
             $table->string('titulo', 100)->nullable();
             $table->string('revisao_n', 100)->nullable();

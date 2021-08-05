@@ -13,7 +13,7 @@ class MapaControleRegistrosRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class MapaControleRegistrosRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+               
+            'codigo' => 'required',
+            'responsavel' => 'required',
+            'data' => 'required'
+    ];
+    }
+    public function messages()
+    {
+        return [
+            'codigo.required' => 'O código é obrigatório',
+            'responsavel.required' => 'o Responsável é obrigatório',
+            'data.required' => 'A Data é obrigatória'
         ];
     }
 }

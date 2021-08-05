@@ -178,7 +178,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mapa_controle', [MapaControleRegistrosController::class, 'index'])->name('mapa_controle');
     Route::get('/mapa_controle/novo', [MapaControleRegistrosController::class, 'novo'])->name('mapa_controle.novo');
     Route::get('/mapa_controle/editar/{id}', [MapaControleRegistrosController::class, 'editar'])->name('mapa_controle.editar');
-    Route::post('/mapa_controle/salvar', [MapaControleRegistrosController::class, 'salvar'])->name('mapa_controle.salvar');
+    Route::post('mapa_controle/salvar', [MapaControleRegistrosController::class, 'salvar'])->name('mapa_controle.salvar');
     Route::get('/mapa_controle/deletar/{id}', [MapaControleRegistrosController::class, 'deletar'])->name('mapa_controle.deletar');
     
     Route::get('/mapa_controle/exportar', [MapaControleRegistrosController::class, 'exportar'])->name('mapa_controle.exportar');

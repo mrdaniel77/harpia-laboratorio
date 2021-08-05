@@ -2,6 +2,29 @@
 @include('layout.navbar')
 @include('layout.sidebar')
 
+<script>
+    @if(isset($mapa_controle_registros) && $mapa_controle_registros->indexacao == 'alfabetica')
+        .cronologica{
+            display: none;
+        }
+    @else
+        .alfabetica{
+            display: none;
+        }
+    @endif
+    </script>
+
+<script>
+    @if(isset($mapa_controle_registros) && $mapa_controle_registros->descarte == 'picotar')
+        .deletar{
+            display: none;
+        }
+    @else
+        .picotar{
+            display: none;
+        }
+    @endif
+    </script>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -10,12 +33,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">{{ isset($mapa_controle) ? 'Editar' : 'Novo' }} Mapa de Controle de Registros</h1>
+            <h1 class="m-0">{{ isset($mapa_controle_registros) ? 'Editar' : 'Novo' }} Mapa de Controle de Registros</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/mapa_controle">Mapa de Controle de Registros</a></li>
-            <li class="breadcrumb-item active">{{ isset($mapa_controle) ? 'Editar' : 'Novo' }}</li>
+            <li class="breadcrumb-item active">{{ isset($mapa_controle_registros) ? 'Editar' : 'Novo' }}</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -40,7 +63,7 @@
                     @endforeach
                 </div>
             @endif
-            @isset($mapa_controle)
+            @isset($mapa_controle_registros)
                 <a href="/mapa_controle/novo" class="btn btn-primary">
                     Novo Mapa de Controle
                     <i class="fas fa-plus"></i>
@@ -49,94 +72,113 @@
 
   <form action="/mapa_controle/salvar" method="POST">
     @csrf
-    <input type="hidden" name="id" value="@if(isset($mapa_controle)){{$mapa_controle->id}}@else{{ old('id') }}@endif">
+    <input type="hidden" name="id" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->id}}@else{{ old('id') }}@endif">
 
     <div class="row">
         <div class="col-6">
-            <div class="form-group">
+            <div class="form-outline">
                 <label for="codigo" class="form-label">Código:</label>
-                <input type="number" name="codigo" class="form-control" required value="@if(isset($mapa_controle)){{$mapa_controle->codigo}}@else{{ old('codigo') }}@endif">
+                <select name="codigo" id="codigo" class="form-control selecao" onchange="habilitaOutro(this.value)">
+                    <option value="">Selecione:</option>
+                    @foreach ($lista_mestra as $key => $t)
+                    <option value="{{ $t->codigo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->codigo == $t->codigo)  selected @elseif(old('codigo') == $t->codigo) selected @endif >{{$t->codigo}}</option> 
+                    @endforeach
+                    <option value="inserir">Outro</option>
+                </select>
+                <input type="text" id="outro" name="outro" style="display: none;
+                float: right;
+                margin-top: -37px;
+                margin-right: -215px;
+                padding: 5px;
+                ">
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-6">
-            <div class="form-group">
-                <label for="servico">CPF</label>
-                <input type="radio" class="tipo" name="tipo" id="tipo_cpf">
-                <label for="servico">CNPJ</label>
-                <input type="radio" class="tipo" name="tipo" id="tipo_cnpj">
-                <input type="text" name="cpf_cnpj" class="form-control cpf_cnpj" id="cpf_cnpj" readonly required value="@if(isset($mapa_controle)){{$mapa_controle->cpf_cnpj}}@else{{old('cpf_cnpj')}}@endisset">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <div class="form-group">
-                <label for="email" class="form-label">E-mail:</label>
-                <input type="email" name="email" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->email}}@else{{old('email')}} @endif" >
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="form-group">
-                <label for="telefone" class="form-label">Telefone:</label>
-                <input type="text" name="telefone" class="form-control telefone" value="@if(isset($mapa_controle)){{$mapa_controle->telefone}}@else{{ old('telefone') }}@endif">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="form-group">
-                <label for="cep" class="form-label">CEP:</label>
-                <input type="text" name="cep" class="form-control cep" value="@if(isset($mapa_controle)){{$mapa_controle->cep}}@else{{old('cep')}}@endif">
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="form-group">
-                <label for="logradouro" class="form-label">Logradouro:</label>
-                <input type="text" name="logradouro" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->logradouro}}@else{{old('logradouro')}}@endif">
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="form-group">
-                <label for="numero" class="form-label">Numero:</label>
-                <input type="number" name="numero" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->numero}}@else{{old('numero')}}@endif">
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <div class="form-group">
-                <label for="cidade" class="form-label">Cidade:</label>
-                <input type="text" name="cidade" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->cidade}}@else{{old('cidade')}}@endif">
-            </div>
-        </div>
-        <div class="col-5">
-            <div class="form-group">
-                <label for="bairro" class="form-label">Bairro:</label>
-                <input type="text" name="bairro" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->bairro}}@else{{old('bairro')}}@endif">
+            <div class="form-outline">
+                <label for="nome" class="form-label">Nome:</label>
+                <select name="nome" id="nome" class="form-control selecao">
+                    <option value="">Selecione:</option>
+                    @foreach ($lista_mestra as $key => $t)
+                      <option value="{{ $t->titulo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->nome == $t->titulo)  selected @elseif(old('nome') == $t->titulo) selected @endif >{{$t->titulo}}</option> 
+                  @endforeach
+                </select>
             </div>
         </div>
         <div class="col-3">
-            <div class="form-group">
-                <label for="uf" class="form-label">UF:</label>
-                <input type="text" name="uf" class="form-control" maxlength="2" value="@if(isset($mapa_controle)){{$mapa_controle->uf}}@else{{old('uf')}}@endif">
+            <div class="form-outline">
+                <label for="acesso" class="form-label">Acesso:</label>
+                <select name="acesso" id="acesso" class="form-control selecao">
+                    <option value="">Selecione:</option>
+                    @foreach ($cargo as $key => $t)
+                      <option value="{{ $t->cargo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->acesso == $t->cargo)  selected @elseif(old('acesso') == $t->cargo) selected @endif >{{$t->cargo}}</option> 
+                  @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-outline">
+                <label for="coleta" class="form-label">Coleta:</label>
+                <select name="coleta" id="coleta" class="form-control selecao">
+                    <option value="">Selecione:</option>
+                    @foreach ($cargo as $key => $t)
+                      <option value="{{ $t->cargo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->coleta == $t->cargo)  selected @elseif(old('coleta') == $t->cargo) selected @endif >{{$t->cargo}}</option> 
+                  @endforeach
+                </select>
             </div>
         </div>
     </div>
-     <div class="row">
+    <div class="row">
         <div class="col-4">
-            <div class="form-group">
-                <label for="responsavel_tecnico" class="form-label">Responsável Técnico:</label>
-                <input type="text" name="responsavel_tecnico" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->responsavel_tecnico}}@else{{old('responsavel_tecnico')}}@endif">
+            <div class="form-outline">
+                <label for="armazenamento" class="form-label">Armazenamento:</label>
+                <input type="text" name="armazenamento" class="form-control armazenamento" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->armazenamento}}@else{{ old('armazenamento') }}@endif">
             </div>
         </div>
-        <div class="col-4">
-            <div class="form-group">
-                <label for="responsavel_financeiro" class="form-label">Responsável Financeiro:</label>
-                <input type="text" name="responsavel_financeiro" class="form-control" value="@if(isset($mapa_controle)){{$mapa_controle->responsavel_financeiro}}@else{{old('responsavel_financeiro')}}@endif">
-            </div>
-        </div>
-  
     </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="form-outline">
+                <label for="tempo_retencao" class="form-label">Tempo de Retencão:</label>
+                <input type="text" name="tempo_retencao" class="form-control" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->tempo_retencao}}@else{{ old('tempo_retencao') }}@endif">
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-outline">
+                <label for="responsavel" class="form-label">Responsável:</label>
+                <input type="text" name="responsavel" class="form-control" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->responsavel}}@else{{ old('responsavel') }}@endif">
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-outline">
+                <label for="data" class="form-label">Data:</label>
+                <input type="date" name="data" class="form-control" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->data}}@else{{ old('data') }}@endif">
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-outline">
+                <label for="Indexação" class="form-label">Indexação:</label>
+                <label for="cronologica" onclick="alteraTipo('cronologica')">Cronológica</label>
+                <input type="radio" class="indexacao" checked name="indexacao" id="cronologica" onclick="alteraTipo('cronologica')" value="cronologica" @if(isset($mapa_controle_registros) && $mapa_controle_registros->indexacao == 'cronologica') checked @elseif(old('indexacao') == "cronologica") checked @endif>
+                <label for="alfabetica" onclick="alteraTipo('alfabetica')">Alfabética</label>
+                <input type="radio" class="indexacao" name="indexacao" id="alfabetica" onclick="alteraTipo('alfabetica')" value="alfabetica" @if(isset($mapa_controle_registros) && $mapa_controle_registros->indexacao == 'alfabetica') checked @elseif(old('indexacao') == "alfabetica") checked @endif>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-outline">
+                <label for="descarte" class="form-label">Descarte:</label>
+                <label for="deletar" onclick="alteraTipo('deletar')">Deletar</label>
+                <input type="radio" class="descarte" checked name="descarte" id="deletar" onclick="alteraTipo('deletar')" value="deletar" @if(isset($mapa_controle_registros) && $mapa_controle_registros->descarte == 'deletar') checked @elseif(old('descarte') == "deletar") checked @endif>
+                <label for="picotar" onclick="alteraTipo('picotar')">Picotar</label>
+                <input type="radio" class="descarte" name="descarte" id="picotar" onclick="alteraTipo('picotar')" value="picotar" @if(isset($mapa_controle_registros) && $mapa_controle_registros->descarte == 'picotar') checked @elseif(old('descarte') == "picotar") checked @endif>
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <div class="col" align="end">
             <button type="submit" class="btn btn-success w-25 hover-shadow">
@@ -145,15 +187,19 @@
             </button>
         </div>
     </div>
-  </form>
-
-</div>
-         
+</form>
 </div>
 <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
 </div>
-
 @include('layout.footer')
+
+<script>
+    function habilitaOutro(value) {
+        if(value == 'inserir') {
+            $('#outro').show();
+        }
+    }
+</script>

@@ -127,7 +127,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-clipboard-check"></i>
+              <i class="far fa-map"></i>
               <p>
                 Mapa de Controle de Registros
                 <i class="right fas fa-angle-left"></i>

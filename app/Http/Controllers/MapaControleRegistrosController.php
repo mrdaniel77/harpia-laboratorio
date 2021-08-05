@@ -15,21 +15,20 @@ class MapaControleRegistrosController extends Controller
         $n_lista_mestra_id = Lista_mestra::select('titulo', 'id')->get();
         $cargo = Cargo::select('cargo', 'id')->get();
         $c_cargo_id = Cargo::select('cargo', 'id')->get();
-
+        
         $pesquisa = $request->pesquisa;
-
+        
         if($pesquisa != '') {
             $mapa_controle_registros = MapaControleRegistros::with('lista_mestra', 'n_lista_mestra_id', 'cargo', 'c_cargo_id')
-                                    ->where('armazenamento','like', "%".$pesquisa."%")
-                                    ->orWhere('indexacao','like', "%".$pesquisa."%")
-                                    ->orWhere('tempo_retencao','like', "%".$pesquisa."%")
-                                    ->orWhere('descarte','like', "%".$pesquisa."%")
-                                    ->orWhere('responsavel','like', "%".$pesquisa."%")
-                                    ->orWhere('data','like', "%".$pesquisa."%")
-                                    ->paginate(1000);
+            ->where('armazenamento','like', "%".$pesquisa."%")
+            ->orWhere('indexacao','like', "%".$pesquisa."%")
+            ->orWhere('tempo_retencao','like', "%".$pesquisa."%")
+            ->orWhere('descarte','like', "%".$pesquisa."%")
+            ->orWhere('responsavel','like', "%".$pesquisa."%")
+            ->orWhere('data','like', "%".$pesquisa."%")
+            ->paginate(1000);
         } else {
-            $mapa_controle_registros = MapaControleRegistros::with('lista_mestra', 'n_lista_mestra_id', 'cargo','c_cargo_id')->paginate(10);
-            
+            $mapa_controle_registros = MapaControleRegistros::with('lista_mestra')->paginate(10);         
         }
         return view('mapa_controle.index', compact('mapa_controle_registros','pesquisa'));
     } 
