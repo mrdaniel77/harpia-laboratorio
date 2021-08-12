@@ -58,7 +58,7 @@
                     <th scope="col">#</th>
                     <th>Cargo</th>
                     <th>Formação</th>
-                    <th>Descrição</th>
+                    <th>Responsabilidades</th>
                     <th>Pré-Requisitos</th>
                     <th>Treinamentos</th>
                     <th>Ações</th>
@@ -70,7 +70,11 @@
                   <td>{!! nl2br($item->id) !!}</td>
                   <td>{!! nl2br($item->cargo) !!}</td>
                   <td>{!! nl2br($item->tipo_formacao) !!}</td>
-                  <td>{!! nl2br($item->descricao) !!}</td>
+                  <td>
+                    @foreach ($item->responsabilidades as $item_resp)
+                        {!! $item_resp->nome . '<br>' !!}
+                    @endforeach
+                  </td>
                   <td>{!! nl2br($item->qualificacao) !!}</td>
                   <td>{!! nl2br($item->habilidades) !!}</td>
                     <td>

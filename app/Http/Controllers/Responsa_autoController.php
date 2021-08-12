@@ -8,6 +8,8 @@ use App\Models\Responsa_auto;
 use App\Models\Colaborador;
 use App\Models\Cargo;
 
+use PDF;
+
 class Responsa_autoController extends Controller
 {
     
@@ -30,6 +32,14 @@ class Responsa_autoController extends Controller
         }
         return view('responsa_auto.index', compact('responsa_auto','pesquisa','colaboradores_id','cargo_id'));
     } 
+    public function gerar_pdf($id){
+        
+        $responsa_auto = Responsa_auto::find($id);
+        view()->share('responsa_auto', $responsa_auto);
+        $pdf_doc = PDF::loadView('responsa_auto.gerar_pdf', $responsa_auto);
+        
+        return $pdf_doc->stream('responsa_auto.pdf');
+    }
     public function novo() {
         $cargos = Cargo::select('cargo', 'id')->get();
         $autorizador_id = Colaborador::select('nome', 'id')->get();
@@ -47,6 +57,10 @@ class Responsa_autoController extends Controller
     }
     public function salvar(Responsa_autoRequest $request) {
 
+        if(count($request->responsabilidades) > 0) {
+            $request['responsabilidades'] = json_encode($request->responsabilidades);
+        }
+        //dd($request->all());
         $ehvalido = $request->validated();
         if($request->id != '') {
             $responsa_auto = Responsa_auto::find($request->id);

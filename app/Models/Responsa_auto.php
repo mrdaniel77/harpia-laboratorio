@@ -10,10 +10,11 @@ class Responsa_auto extends Model
     use HasFactory;
     protected $fillable = [
         'colaborador_id',
-        'autorizado_id',
-        'assi_autorizado',
-        'assi_autorizador',
+        'autorizador_id',
+        'assinatura_autorizado',
+        'assinatura_autorizador',
         'cargo_id',
+        'responsabilidades',
     ];
 
 
@@ -24,10 +25,10 @@ class Responsa_auto extends Model
 
     public function autorizador()
     {
-        return $this->hasOne(Colaborador::class, 'id', 'autorizado_id');
+        return $this->hasOne(Colaborador::class, 'id', 'autorizador_id');
     }
     public function cargo()
     {
-        return $this->hasOne(Colaborador::class, 'id', 'cargo_id');
+        return $this->hasOne(Cargo::class, 'id', 'cargo_id');
     }
 }
