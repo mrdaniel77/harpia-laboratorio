@@ -14,7 +14,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/reclamacoes">Responsabilidades e autorizações</a></li>
+            <li class="breadcrumb-item"><a href="/responsa_auto">Responsabilidades e autorizações</a></li>
             <li class="breadcrumb-item active">{{ isset($responsa_auto) ? 'Editar' : 'Novo' }}</li>
           </ol>
         </div><!-- /.col -->
@@ -75,11 +75,11 @@
       </div>
       <div class="col-6">
         <div class="form-group">
-          <label for="autorizado_id" class="form-label">Autorizado por:</label>
-          <select  required name="autorizado_id" id="autorizado_id" class="form-control">
+          <label for="autorizador_id" class="form-label">Autorizado por:</label>
+          <select  required name="autorizador_id" id="autorizado_id" class="form-control">
             <option value="">Selecione um Responsável</option>
-             @foreach($colaboradores_id as $item)
-                <option value="{{$item->id}}" @if(isset($responsa_auto) &&$responsa_auto->colaborador_id == $item->id) selected @elseif(old('autorizado_id') == $item->id) selected @endif>{{$item->nome}}
+             @foreach($autorizador_id as $item)
+                <option value="{{$item->id}}" @if(isset($responsa_auto) &&$responsa_auto->autorizador_id == $item->id) selected @elseif(old('autorizador_id') == $item->id) selected @endif>{{$item->nome}}
                 </option>
               @endforeach
           </select>
@@ -102,7 +102,12 @@
     <div class="col-6">
       <div class="form-group">
         <label for="">Responsabilidades</label>
-        <select class="js-example-basic-multiple form-control" id="lista_responsabilidades" name="states[]" multiple="multiple" placeholder="Selecione o cargo">
+        <select class="js-example-basic-multiple form-control" id="lista_responsabilidades" name="responsabilidades[]" multiple="multiple" placeholder="Selecione o cargo">
+          @if(isset($responsa_auto) && $responsa_auto->responsabilidades != '')
+            @foreach (json_decode($responsa_auto->responsabilidades) as $item)
+                <option value="{{ $item }}" selected>{{ $item }}</option>
+            @endforeach
+          @endif
         </select>
       </div>
     </div>
@@ -124,6 +129,12 @@
     <div class="row">
         <div class="col" align="end">
             <br>
+            @isset($responsa_auto->id)
+            <a href="/responsa_auto/gerar_pdf/{{ $responsa_auto->id }}" class="btn btn-danger"  target="_blank">
+              Gerar PDF
+              <i class="fas fa-file-pdf"></i>
+            </a>
+            @endisset
             <button type="submit" class="btn btn-success w-25 hover-shadow">
                 Salvar 
                 <i class="fas fa-save"></i>
@@ -170,7 +181,7 @@ $(document).ready(function() {
           });
           $.each(data.responsabilidades, function (i, item) {
               $('#lista_responsabilidades').append($('<option>', { 
-                  value: item.id,
+                  value: item.nome,
                   text : item.nome 
               }));
           });

@@ -56,9 +56,9 @@
            <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th>Responsabilidade</th>
                     <th>Colaborador</th>
                     <th>Autorizador</th>
+                    <th>Cargo</th>
                     <th>Ações</th>
                 </tr>
               </thead>
@@ -66,6 +66,9 @@
               <tbody>
                 <tr>
                   <td>{!! nl2br($item->id) !!}</td>
+                  <td>{!! nl2br($item->colaborador->nome) !!}</td>
+                  <td>{!! nl2br($item->autorizador->nome) !!}</td>
+                  <td>{!! nl2br($item->cargo->cargo) !!}</td>
                   
                     <td>
                       <a href="responsa_auto/editar/{{ $item->id }}" class="btn btn-warning">

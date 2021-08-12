@@ -176,12 +176,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('retorno/salvar', [RetornoController::class, 'salvar'])->name('retorno.salvar');
     Route::get('retorno/deletar/{id}', [RetornoController::class, 'deletar'])->name('retorno.deletar');
 
-    Route::get('responsa_auto', [Responsa_autoController::class, 'index'])->name('responsa_auto');
-    Route::get('responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
-    Route::get('responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
-    Route::post('responsa_auto/salvar', [Responsa_autoController::class, 'salvar'])->name('responsa_auto.salvar');
-    Route::get('responsa_auto/deletar/{id}', [Responsa_autoController::class, 'deletar'])->name('responsa_auto.deletar');
+    Route::get('/responsa_auto', [Responsa_autoController::class, 'index'])->name('responsa_auto');
+    Route::get('/responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
+    Route::get('/responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
+    Route::post('/responsa_auto/salvar', [Responsa_autoController::class, 'salvar'])->name('responsa_auto.salvar');
+    Route::get('/responsa_auto/deletar/{id}', [Responsa_autoController::class, 'deletar'])->name('responsa_auto.deletar');
 
+    Route::get('/responsa_auto/gerar_pdf/{id}', [Responsa_autoController::class, 'gerar_pdf'])->name('responsa_auto.gerar_pdf');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
