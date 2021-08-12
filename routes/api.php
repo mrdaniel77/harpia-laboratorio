@@ -55,7 +55,6 @@ Route::get('/equipamentos/deletar/{id}', [EquipamentoController::class, 'deletar
 Route::post('/equipamentos/salvar', [EquipamentoController::class, 'salvar'])->name('equipamentos.salvar');
 
 Route::get('/fornecedores', [FornecedorController::class, 'index'])->name('fornecedores');
-/* Route::get('/fornecedores.novo', [FornecedorController::class, 'novo'])->name('fornecedores.novo'); */
 Route::get('/fornecedores/deletar/{id}', [FornecedorController::class, 'deletar'])->name('fornecedores.deletar');
 Route::post('/fornecedores/salvar', [FornecedorController::class, 'salvar'])->name('fornecedores.salvar');
 
