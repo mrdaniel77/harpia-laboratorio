@@ -28,4 +28,6 @@ class Lista_mestra extends Model
     {
         return $this->hasOne(Documento::class, 'id', 'documento_id');
     }
+
+    
 }

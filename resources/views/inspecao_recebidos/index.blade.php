@@ -34,6 +34,12 @@
             Novo Produto 
             <i class="fas fa-plus"></i>
           </a>
+
+          <a href="/inspecao_recebidos/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
+          </a>
+
           <div class="card-tools">
             <form action="">
               <div class="input-group input-group" style="width: 150px;">

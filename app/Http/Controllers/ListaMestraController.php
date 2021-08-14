@@ -9,24 +9,41 @@ use App\Models\Documento;
 
 class ListaMestraController extends Controller
 {
+
+    public $tipo = ['Manual','Procedimento','Anexo','Instrução de uso/trabalho','Formulário'];
+
     public function index(Request $request) {
+
+        $documento_relacionado = Documento::select('documento', 'id')->get();
+
         $pesquisa = $request->pesquisa;
+
         
         if($pesquisa != '') {
             $lista_mestras = Lista_mestra::where('codigo', 'like', "%".$pesquisa."%")->paginate(1000);
         } else {
             $lista_mestras = Lista_mestra::with('codigo')->paginate(10);
         }
-        return view('lista_mestras.index', compact('lista_mestras','pesquisa'));
+        return view('lista_mestras.index', compact('lista_mestras','pesquisa', 'documento_relacionado'));
     } 
+
     public function novo() {
-        $documentos = Documento::get();
-        return view('lista_mestras.form', compact("documentos" ));
+
+        
+        $tipo = $this->tipo;
+
+        $documento_relacionado = Documento::select('documento', 'id')->get();
+
+        return view('lista_mestras.form', compact('tipo', 'documento_relacionado' ));
     }
+
     public function editar($id) {
+
+        $tipo = $this->tipo;
         $lista_mestra = Lista_mestra::find($id);
-        $documentos = Documento::get();
-        return view('lista_mestras.form', compact('lista_mestra', 'documentos'));
+        $documento_relacionado = Documento::select('documento', 'id')->get();
+
+        return view('lista_mestras.form', compact('lista_mestra', 'tipo', 'documento_relacionado'));
     }
     public function salvar(ListaMestraRequest $request) {
         

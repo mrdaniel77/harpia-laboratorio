@@ -34,6 +34,10 @@
             <i class="fas fa-plus"></i>
           </a>
           
+          <a href="/analise_critica/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
+          </a>
 
           <div class="card-tools">
             <form action="">
@@ -62,7 +66,7 @@
                     <th>Ações</th>
                 </tr>
               </thead>
-              @foreach ($analise_criticas as $item)
+              @foreach ($analise_critica as $item)
               <tbody>
                 <tr>
                   <td>{{ $item->id }}</td>
@@ -83,7 +87,7 @@
               </tbody>
               @endforeach
             </table> 
-            @if(count($analise_criticas) <1 )
+            @if(count($analise_critica) <1 )
               <div class="alert alert-info">Nenhuma análise encontrada</div>
             @endif
               
@@ -93,7 +97,7 @@
       </div>
       <div class="row">
         <div class="col">
-          {{ $analise_criticas->links() }}
+          {{ $analise_critica->links() }}
         </div>
       </div>
       

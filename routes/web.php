@@ -28,6 +28,7 @@ use App\Http\Controllers\InspecaoRecebidosController;
 use App\Http\Controllers\C_temperaturaController;
 use App\Http\Controllers\AcoesPropostasController;
 use App\Http\Controllers\RetornoController;
+use App\Http\Controllers\MapaControleRegistrosController;
 use App\Http\Controllers\IndiceDesempenhoController;
 use App\Http\Controllers\PlanoDesempenhoController;
 use App\Http\Controllers\Responsa_autoController;
@@ -130,6 +131,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('analise_critica/salvar', [AnaliseCriticaController::class, 'salvar'])->name('analise_critica.salvar');
     Route::get('/analise_critica/deletar/{id}', [AnaliseCriticaController::class, 'deletar'])->name('analise_critica.deletar');
 
+    Route::get('/analise_critica/exportar', [AnaliseCriticaController::class, 'exportar'])->name('analise_critica.exportar');
+
     Route::get('/registro_de_ocorrencia', [RegistroOcorrenciaController::class, 'index'])->name('registro_de_ocorrencia');
     Route::get('/registro_de_ocorrencia/novo', [RegistroOcorrenciaController::class, 'novo'])->name('registro_de_ocorrencia.novo');
     Route::get('/registro_de_ocorrencia/editar/{id}', [RegistroOcorrenciaController::class, 'editar'])->name('registro_de_ocorrencia.editar');
@@ -148,6 +151,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('acoes_propostas/salvar', [AcoesPropostasController::class, 'salvar'])->name('acoes_propostas.salvar');
     Route::get('/acoes_propostas/deletar/{id}', [AcoesPropostasController::class, 'deletar'])->name('acoes_propostas.deletar');
 
+    Route::get('/acoes_propostas/exportar', [AcoesPropostasController::class, 'exportar'])->name('acoes_propostas.exportar');
+
     Route::get('/lista_mestras', [ListaMestraController::class, 'index'])->name('lista_mestra');
     Route::get('/lista_mestras/novo', [ListaMestraController::class, 'novo'])->name('lista_mestra.novo');
     Route::get('/lista_mestras/editar/{id}', [ListaMestraController::class, 'editar'])->name('lista_mestra.editar');
@@ -159,6 +164,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/inspecao_recebidos/editar/{id}', [InspecaoRecebidosController::class, 'editar'])->name('inspecao_recebidos.editar');
     Route::post('/inspecao_recebidos/salvar', [InspecaoRecebidosController::class, 'salvar'])->name('inspecao_recebidos.salvar');
     Route::get('/inspecao_recebidos/deletar/{id}', [InspecaoRecebidosController::class, 'deletar'])->name('inspecao_recebidos.deletar');
+
+    Route::get('/inspecao_recebidos/exportar', [InspecaoRecebidosController::class, 'exportar'])->name('inspecao_recebidos.exportar');
 
     Route::get('/c_temperatura', [C_temperaturaController::class, 'index'])->name('c_temperatura');
     Route::get('/c_temperatura/novo', [C_temperaturaController::class, 'novo'])->name('c_temperatura.novo');
@@ -178,6 +185,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('retorno/salvar', [RetornoController::class, 'salvar'])->name('retorno.salvar');
     Route::get('retorno/deletar/{id}', [RetornoController::class, 'deletar'])->name('retorno.deletar');
 
+    Route::get('/mapa_controle', [MapaControleRegistrosController::class, 'index'])->name('mapa_controle');
+    Route::get('/mapa_controle/novo', [MapaControleRegistrosController::class, 'novo'])->name('mapa_controle.novo');
+    Route::get('/mapa_controle/editar/{id}', [MapaControleRegistrosController::class, 'editar'])->name('mapa_controle.editar');
+    Route::post('mapa_controle/salvar', [MapaControleRegistrosController::class, 'salvar'])->name('mapa_controle.salvar');
+    Route::get('/mapa_controle/deletar/{id}', [MapaControleRegistrosController::class, 'deletar'])->name('mapa_controle.deletar');
+    
+    Route::get('/mapa_controle/exportar', [MapaControleRegistrosController::class, 'exportar'])->name('mapa_controle.exportar');
+    Route::get('/mapa_controle/exportar_pdf', [MapaControleRegistrosController::class, 'exportar_pdf'])->name('mapa_controle.exportar_pdf');
     Route::get('/responsa_auto', [Responsa_autoController::class, 'index'])->name('responsa_auto');
     Route::get('/responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
     Route::get('/responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
@@ -191,6 +206,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('indice_desempenho/editar/{id}', [IndiceDesempenhoController::class, 'editar'])->name('indice_desempenho.editar');
     Route::post('indice_desempenho/salvar', [IndiceDesempenhoController::class, 'salvar'])->name('indice_desempenho.salvar');
     Route::get('indice_desempenho/deletar/{id}', [IndiceDesempenhoController::class, 'deletar'])->name('indice_desempenho.deletar');
+
+    Route::get('/indice_desempenho/exportar', [IndiceDesempenhoController::class, 'exportar'])->name('indice_desempenho.exportar');
+
 
     Route::get('plano_desempenho', [PlanoDesempenhoController::class, 'index'])->name('plano_desempenho');
     Route::get('plano_desempenho/novo', [PlanoDesempenhoController::class, 'novo'])->name('plano_desempenho.novo');
