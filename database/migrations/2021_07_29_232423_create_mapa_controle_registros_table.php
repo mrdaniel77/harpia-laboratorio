@@ -17,15 +17,16 @@ class CreateMapaControleRegistrosTable extends Migration
             $table->id();
             $table->string('codigo', 20);
             $table->string('nome', 255)->nullable();
-            $table->string('acesso', 100);
-            $table->string('coleta', 100);
+            $table->text('acesso')->nullable();
+            $table->text('coleta')->nullable();
             $table->string('armazenamento', 100)->nullable();
             $table->enum('indexacao', ['Alfabética', 'Cronológica'])->nullable();
             $table->string('tempo_retencao', 100)->nullable();
             $table->enum('descarte', ['Picotar', 'Deletar'])->nullable();
             $table->string('responsavel', 255);
             $table->date('data', 10);
-            $table->string('outro', 100);
+            $table->string('outro', 100)->nullable();
+            $table->string('link', 255)->nullable();
             $table->timestamps();
         });
     }

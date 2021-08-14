@@ -26,7 +26,8 @@ class MapaControleRegistros extends Model
         'n_lista_mestra_id',
         'acesso_id',
         'c_cargo_id',
-        'outro'
+        'outro',
+        'link'
 
     ];
 

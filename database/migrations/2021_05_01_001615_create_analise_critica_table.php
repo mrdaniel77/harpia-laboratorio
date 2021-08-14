@@ -15,11 +15,11 @@ class CreateAnaliseCriticaTable extends Migration
     {
         Schema::create('analise_critica', function (Blueprint $table) {
             $table->id();
-            $table->enum('metodos_definidos', ['sim', 'nao']);
-            $table->enum('pessoal_qualificado', ['sim', 'nao']);
-            $table->enum('capacidade_recursos', ['sim', 'nao']);
-            $table->enum('metodo_ensaio', ['sim', 'nao']);
-            $table->enum('aprovado', ['sim', 'nao']);
+            $table->enum('metodos_definidos', ['Sim', 'Não']);
+            $table->enum('pessoal_qualificado', ['Sim', 'Não']);
+            $table->enum('capacidade_recursos', ['Sim', 'Não']);
+            $table->enum('metodo_ensaio', ['Sim', 'Não']);
+            $table->enum('aprovado', ['Sim', 'Não']);
             $table->text('justificativa_reprovacao')->nullable();
             $table->bigInteger('colaborador_id');
             $table->date('data');

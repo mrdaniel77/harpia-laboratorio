@@ -19,5 +19,12 @@
     width: 80%;
 }
 
+.form-outline1 {
+    display: none;
+    float: right;
+    margin-top: -37px;
+    margin-right: -215px;
+    padding: 5px;
+}
 
 

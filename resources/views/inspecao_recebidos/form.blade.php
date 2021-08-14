@@ -58,7 +58,7 @@
                 <select name="produto_id" id="produto_id" class="form-control select_produto_id">
                     <option value="">selecione</option>
                     @foreach ($produto as $key => $tipo)
-                        <option class="produto_id" value="{{$tipo->id}}"@if(isset($inspecao_recebidos) && $inspecao_recebidos->produto_id == $tipo->id) selected @elseif(old('produto_id') == $tipo->id) selected @endif data-fabricante="{{$tipo->fabricante}}" data-fornecedor="{{$tipo->fornecedor->razao_social}}">{{$tipo->nome}}</option>
+                        <option class="produto_id" value="{{$tipo->id}}"@if(isset($inspecao_recebidos) && $inspecao_recebidos->produto_id == $tipo->id) selected @elseif(old('produto_id') == $tipo->id) selected @endif data-fabricante="{{$tipo->fabricante}}" data-fornecedor="{{$tipo->fornecedor}}">{{$tipo->nome}}</option>
                     @endforeach
                 </select>
             </div>

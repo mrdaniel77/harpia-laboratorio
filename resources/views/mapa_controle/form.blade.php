@@ -73,10 +73,10 @@
   <form action="/mapa_controle/salvar" method="POST">
     @csrf
     <input type="hidden" name="id" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->id}}@else{{ old('id') }}@endif">
-
+    <br>
     <div class="row">
-        <div class="col-6">
-            <div class="form-outline">
+        <div class="col-4">
+            <div class="form-outline1">
                 <label for="codigo" class="form-label">Código:</label>
                 <select name="codigo" id="codigo" class="form-control selecao" onchange="habilitaOutro(this.value)">
                     <option value="">Selecione:</option>
@@ -84,18 +84,20 @@
                     <option value="{{ $t->codigo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->codigo == $t->codigo)  selected @elseif(old('codigo') == $t->codigo) selected @endif >{{$t->codigo}}</option> 
                     @endforeach
                     <option value="inserir">Outro</option>
+                    <label for="outro" class="form-label"></label>
+                    <input class="form-outline2" type="text" id="outro" name="outro" style="display: none;
+                    ">
+                    <!--<button type="button" class="btn btn-outline-primary" style="float: right;
+                    margin-top: -38px;
+                    margin-right: -302px;
+                    padding: 7px;">Primary</button> -->
                 </select>
-                <input type="text" id="outro" name="outro" style="display: none;
-                float: right;
-                margin-top: -37px;
-                margin-right: -215px;
-                padding: 5px;
-                ">
+                
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
             <div class="form-outline">
                 <label for="nome" class="form-label">Nome:</label>
                 <select name="nome" id="nome" class="form-control selecao">
@@ -106,29 +108,30 @@
                 </select>
             </div>
         </div>
-        <div class="col-3">
-            <div class="form-outline">
-                <label for="acesso" class="form-label">Acesso:</label>
-                <select name="acesso" id="acesso" class="form-control selecao">
-                    <option value="">Selecione:</option>
-                    @foreach ($cargo as $key => $t)
-                      <option value="{{ $t->cargo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->acesso == $t->cargo)  selected @elseif(old('acesso') == $t->cargo) selected @endif >{{$t->cargo}}</option> 
-                  @endforeach
-                </select>
-            </div>
+    <div class="col-4">
+        <div class="form-outline">
+            <label for="acesso" class="form-label">Acesso:</label>
+            <select class="js-example-basic-multiple form-control" id="acesso" name="acesso[]" multiple="multiple" placeholder="Selecione o Acesso">
+                <option value="">Selecione:</option>
+                @foreach ($cargo as $key => $t)
+                  <option value="{{ $t->cargo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->acesso == $t->cargo)  selected @elseif(old('acesso') == $t->cargo) selected @endif >{{$t->cargo}}</option> 
+              @endforeach
+            </select>
         </div>
-        <div class="col-3">
-            <div class="form-outline">
+    </div> 
+
+            <div class="col-4">
+                <div class="form-outline">
                 <label for="coleta" class="form-label">Coleta:</label>
-                <select name="coleta" id="coleta" class="form-control selecao">
+                <select class="js-example-basic-multiple form-control" id="coleta" name="coleta[]" multiple="multiple" placeholder="Selecione a coleta">
                     <option value="">Selecione:</option>
                     @foreach ($cargo as $key => $t)
                       <option value="{{ $t->cargo }}" @if(isset($mapa_controle_registros) && $mapa_controle_registros->coleta == $t->cargo)  selected @elseif(old('coleta') == $t->cargo) selected @endif >{{$t->cargo}}</option> 
                   @endforeach
-                </select>
+                </select>  
+                </div>
             </div>
-        </div>
-    </div>
+        </div> 
     <div class="row">
         <div class="col-4">
             <div class="form-outline">
@@ -136,11 +139,21 @@
                 <input type="text" name="armazenamento" class="form-control armazenamento" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->armazenamento}}@else{{ old('armazenamento') }}@endif">
             </div>
         </div>
+    
+    <div class="col-8">
+    <label for="link" class="form-label">Inserir Link:</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+            <input type="text" name="link" class="form-control" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->link}}@else{{ old('link') }}@endif">
+            </div>
     </div>
+</div>
+    <br>
+
     <div class="row">
         <div class="col-4">
             <div class="form-outline">
-                <label for="tempo_retencao" class="form-label">Tempo de Retencão:</label>
+                <label for="tempo_retencao" class="form-label">Tempo de Retenção:</label>
                 <input type="text" name="tempo_retencao" class="form-control" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->tempo_retencao}}@else{{ old('tempo_retencao') }}@endif">
             </div>
         </div>
@@ -153,7 +166,7 @@
         <div class="col-3">
             <div class="form-outline">
                 <label for="data" class="form-label">Data:</label>
-                <input type="date" name="data" class="form-control" value="@if(isset($mapa_controle_registros)){{$mapa_controle_registros->data}}@else{{ old('data') }}@endif">
+                <input required type="date" min="{{ date('Y-m-d')}}" name="data" class="form-control" value="@isset($mapa_controle_registros){{$mapa_controle_registros->data}}@endisset">
             </div>
         </div>
     </div>
@@ -178,6 +191,21 @@
             </div>
         </div>
     </div>
+    
+    <!--<div class="row">
+        <div class="col-6">
+    <ul class="list-group">
+        <li class="list-group-item">
+          <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          First checkbox
+        </li>
+        <li class="list-group-item">
+          <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+          Second checkbox
+        </li>
+      </ul>
+    </div>
+    </div>-->
     <br>
     <div class="row">
         <div class="col" align="end">
@@ -202,4 +230,30 @@
             $('#outro').show();
         }
     }
+
+    $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+
+    $('#acesso').change(function(){
+      let cargo = $(this).val()
+      $.ajax({
+          url: "/cargos/" + cargo,
+        })
+        .done(function( data ) {
+          $('#acesso option').each(function() {
+            $(this).remove();
+          });
+          $.each(data.cargos, function (i, item) {
+              $('#coleta').append($('<option>', { 
+                  value: item.id,
+                  text : item.nome 
+              }));
+          });
+
+
+
+        });
+      });
+});
 </script>
+

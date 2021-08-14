@@ -38,10 +38,7 @@
             Exportar
             <i class="fas fa-file-excel"></i>
           </a>
-          <a href="/mapa_controle/exportar_pdf?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-danger" target="_blank">
-            Gerar PDF
-            <i class="fas fa-file-pdf"></i>
-          </a>
+    
           <div class="card-tools">
             <form action="">
               <div class="input-group input-group" style="width: 150px;">
@@ -64,7 +61,6 @@
                 <th scope="col">#</th>
                 <th>Nome</th>
                 <th>Código</th>
-                <th>Acesso</th>
                 <th>Responsável</th>
                 <th>Data</th>
                 <th>Ações</th>
@@ -76,7 +72,6 @@
                   <td>{{ $item->id }}</td>
                   <td>{{ $item->nome }}</td>
                   <td>{{ $item->codigo }}</td>
-                  <td>{{ $item->acesso }}</td>
                   <td>{{ $item->responsavel }}</td>
                   <td>{{ $item->data }}</td>
                   <td>
