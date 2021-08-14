@@ -17,12 +17,13 @@ class CreateResponsaAutosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('colaborador_id');
             $table->foreign('colaborador_id')->references('id')->on('colaboradors');
-            $table->unsignedBigInteger('autorizado_id');
-            $table->foreign('autorizado_id')->references('id')->on('colaboradors');
+            $table->unsignedBigInteger('autorizador_id');
+            $table->foreign('autorizador_id')->references('id')->on('colaboradors');
             $table->unsignedBigInteger('cargo_id');
             $table->foreign('cargo_id')->references('id')->on('cargos');
             $table->string('assinatura_autorizado')->nullable();
             $table->string('assinatura_autorizador')->nullable();
+            $table->text('responsabilidades')->nullable();
             $table->timestamps();
         });
     }
