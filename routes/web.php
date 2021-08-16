@@ -29,6 +29,7 @@ use App\Http\Controllers\C_temperaturaController;
 use App\Http\Controllers\AcoesPropostasController;
 use App\Http\Controllers\RetornoController;
 use App\Http\Controllers\Responsa_autoController;
+use App\Http\Controllers\Plano_auditoriaController;
 
 
 //reset senha
@@ -181,8 +182,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
     Route::post('/responsa_auto/salvar', [Responsa_autoController::class, 'salvar'])->name('responsa_auto.salvar');
     Route::get('/responsa_auto/deletar/{id}', [Responsa_autoController::class, 'deletar'])->name('responsa_auto.deletar');
-
     Route::get('/responsa_auto/gerar_pdf/{id}', [Responsa_autoController::class, 'gerar_pdf'])->name('responsa_auto.gerar_pdf');
+
+    Route::get('/plano_auditoria', [Plano_auditoriaController::class, 'index'])->name('plano_auditoria');
+    Route::get('/plano_auditoria/novo', [Plano_auditoriaController::class, 'novo'])->name('plano_auditoria.novo');
+    Route::get('/plano_auditoria/editar/{id}', [Plano_auditoriaController::class, 'editar'])->name('plano_auditoria.editar');
+    Route::post('/plano_auditoria/salvar', [Plano_auditoriaController::class, 'salvar'])->name('plano_auditoria.salvar');
+    Route::get('/plano_auditoria/deletar/{id}', [Plano_auditoriaController::class, 'deletar'])->name('plano_auditoria.deletar');
+    Route::get('/plano_auditoria/gerar_pdf/{id}', [Plano_auditoriaController::class, 'gerar_pdf'])->name('plano_auditoria.gerar_pdf');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
