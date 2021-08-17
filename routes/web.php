@@ -186,14 +186,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/responsa_auto/deletar/{id}', [Responsa_autoController::class, 'deletar'])->name('responsa_auto.deletar');
     Route::get('/responsa_auto/gerar_pdf/{id}', [Responsa_autoController::class, 'gerar_pdf'])->name('responsa_auto.gerar_pdf');
 
-<<<<<<< HEAD
+ 
     Route::get('/plano_auditoria', [Plano_auditoriaController::class, 'index'])->name('plano_auditoria');
     Route::get('/plano_auditoria/novo', [Plano_auditoriaController::class, 'novo'])->name('plano_auditoria.novo');
     Route::get('/plano_auditoria/editar/{id}', [Plano_auditoriaController::class, 'editar'])->name('plano_auditoria.editar');
     Route::post('/plano_auditoria/salvar', [Plano_auditoriaController::class, 'salvar'])->name('plano_auditoria.salvar');
     Route::get('/plano_auditoria/deletar/{id}', [Plano_auditoriaController::class, 'deletar'])->name('plano_auditoria.deletar');
     Route::get('/plano_auditoria/gerar_pdf/{id}', [Plano_auditoriaController::class, 'gerar_pdf'])->name('plano_auditoria.gerar_pdf');
-=======
+
     Route::get('indice_desempenho', [IndiceDesempenhoController::class, 'index'])->name('indice_desempenho');
     Route::get('indice_desempenho/novo', [IndiceDesempenhoController::class, 'novo'])->name('indice_desempenho.novo');
     Route::get('indice_desempenho/editar/{id}', [IndiceDesempenhoController::class, 'editar'])->name('indice_desempenho.editar');
@@ -210,8 +210,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
     Route::get('responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
     Route::post('responsa_auto/salvar', [Responsa_autoController::class, 'salvar'])->name('responsa_auto.salvar');
-    Route::get('responsa_auto/deletar/{id}', [Responsa_autoController::class, 'deletar'])->name('responsa_auto.deletar');
->>>>>>> 616033d32bb63595694949489dcc776949c61151
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
