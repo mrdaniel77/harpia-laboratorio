@@ -47,35 +47,33 @@ class Plano_auditoriaController extends Controller
         return view('plano_auditoria.form', compact('colaboradores_id','setores'));
     }
     public function editar($id) {
-    
+        $setores = Setor::select('setor', 'id')->get();
+        $colaboradores_id = Colaborador::select('nome', 'id')->get();
         $plano_auditoria = Plano_auditoria::find($id);
         
-        return view('plano_auditoria.form', compact('plano_auditoria'));
+        return view('plano_auditoria.form', compact('plano_auditoria','setores','colaboradores_id'));
     }
     public function salvar(Plano_auditoriaRequest $request) {
 
-        if(count($request->responsabilidades) > 0) {
-            $request['responsabilidades'] = json_encode($request->responsabilidades);
-        }
-        //dd($request->all());
+       
         $ehvalido = $request->validated();
         if($request->id != '') {
-            $responsa_auto = Responsa_auto::find($request->id);
-            $responsa_auto->update($request->all());
+            $plano_auditoria = Plano_auditoria::find($request->id);
+            $plano_auditoria->update($request->all());
         } else {
             
-            $responsa_auto = Responsa_auto::create($request->all());
+            $plano_auditoria = Plano_auditoria::create($request->all());
         }
 
-        return redirect('/responsa_auto/editar/'. $responsa_auto->id)->with('success', 'Salvo com sucesso!');
+        return redirect('/plano_auditoria/editar/'. $plano_auditoria->id)->with('success', 'Salvo com sucesso!');
     }
     public function deletar($id) {
-        $responsa_auto = Responsa_auto::find($id);
-        if(!empty($responsa_auto)){
-            $responsa_auto->delete();
-            return redirect('responsa_auto')->with('success', 'Deletado com sucesso!');
+        $plano_auditoria = Plano_auditoria::find($id);
+        if(!empty($plano_auditoria)){
+            $plano_auditoria->delete();
+            return redirect('plano_auditoria')->with('success', 'Deletado com sucesso!');
         } else {
-            return redirect('responsa_auto')->with('danger', 'Registro não encontrado!');
+            return redirect('plano_auditoria')->with('danger', 'Registro não encontrado!');
         }
     }
 }
