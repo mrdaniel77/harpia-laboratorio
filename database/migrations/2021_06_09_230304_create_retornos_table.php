@@ -18,7 +18,7 @@ class CreateRetornosTable extends Migration
             $table->string('data_retorno');
             $table->text('descricao');
             $table->bigInteger('colaborador_id');
-            $table->bigInteger('reclamacao_id');
+            $table->bigInteger('reclamacao_id')->nullable();
             $table->timestamps();
         });
     }

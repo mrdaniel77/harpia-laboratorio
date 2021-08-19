@@ -34,6 +34,10 @@
             <i class="fas fa-plus"></i>
           </a>
           
+          <a href="/cargos/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
+          </a>
 
           <div class="card-tools">
             <form action="">
@@ -64,7 +68,7 @@
                     <th>Ações</th>
                 </tr>
               </thead>
-              @foreach ($cargos as $item)
+              @foreach ($cargo as $item)
               <tbody>
                 <tr>
                   <td>{!! nl2br($item->id) !!}</td>
@@ -91,7 +95,7 @@
 
           </table>
           <br>
-            @if(count($cargos) < 1)
+            @if(count($cargo) < 1)
             <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
               Nenhum registro encontrado!
             </div>
@@ -101,7 +105,7 @@
       </div>
       <div class="row">
         <div class="col">
-          {{ $cargos->links() }}
+          {{ $cargo->links() }}
         </div>
       </div>
       

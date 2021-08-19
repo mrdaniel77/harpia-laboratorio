@@ -17,18 +17,78 @@ class ParticipantesTreinamentoController extends Controller
             $pesquisa = $request->pesquisa;
             $treinamento_id = $request->treinamento_id;
             $treinamento = RegistroTreinamento::find($treinamento_id);
+            $tipo = $request->tipo;
 
-            if($pesquisa != '') {
-            $participantes_treinamento = ParticipantesTreinamento::with('treinamento')->where('numero', 'like', "%".$pesquisa."%")
-            ->where('registro_treinamento_id','=', $treinamento_id)
-                                                                   ->orWhere('setor', 'like', "%".$pesquisa."%")
-                                                                   ->orWhere('nome', 'like', "%".$pesquisa."%")
-                                                                   ->paginate(1000);
-            
-            } else {
-            $participantes_treinamento = ParticipantesTreinamento::where('registro_treinamento_id','=', $treinamento_id)->paginate(10);
+            if($tipo == 'exportar') {
+                $d = date('d-m-Y-H-m-s');
+                $arquivo = 'participantes_treinamento-'.$d.'.xls';
+                // Configurações header para forçar o download
+                    header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                    header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                    header ("Cache-Control: no-cache, must-revalidate");
+                    header ("Pragma: no-cache");
+                    //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                    header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                    header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                    header ("Content-Description: PHP Generated Data" );
+                    echo "\xEF\xBB\xBF"; //UTF-8 BOM
+    
             }
-            return view('participantes_treinamento.index', compact('participantes_treinamento', 'pesquisa', 'treinamento'));
+            
+    
+            if($pesquisa != '' && $tipo != 'exportar') {
+                $participantes_treinamento = ParticipantesTreinamento::with('treinamento')->where('numero', 'like', "%".$pesquisa."%")
+                                                                    ->where('registro_treinamento_id','=', $treinamento_id)
+                                                                    ->orWhere('setor', 'like', "%".$pesquisa."%")
+                                                                    ->orWhere('nome', 'like', "%".$pesquisa."%")->paginate(1000);
+            } else if($pesquisa != '' && $tipo == 'exportar') {
+                $participantes_treinamento = ParticipantesTreinamento::with('treinamento')->where('numero', 'like', "%".$pesquisa."%")
+                                                                    ->where('registro_treinamento_id','=', $treinamento_id)
+                                                                    ->orWhere('setor', 'like', "%".$pesquisa."%")
+                                                                    ->orWhere('nome', 'like', "%".$pesquisa."%")->all();
+                return view('participantes_treinamento.exportar', compact('participantes_treinamento'));
+            } else if($tipo == 'exportar') {
+                $participantes_treinamento = ParticipantesTreinamento::all();
+                return view('participantes_treinamento.exportar', compact('participantes_treinamento'));
+    
+            }else{
+                $participantes_treinamento = ParticipantesTreinamento::paginate(10);
+            }
+    
+                
+    
+            if($request->is('api/participantes_treinamento')){
+                return response()->json([$registro],200);
+            }else{
+                return view('participantes_treinamento.index', compact('participantes_treinamento','pesquisa'));
+            }
+        } 
+        public function exportar(Request $request) {
+            $pesquisa = $request->pesquisa;
+             
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'participantes_treinamento-'.$d.'.xls';
+            // Configurações header para forçar o download
+            header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+            header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+            header ("Cache-Control: no-cache, must-revalidate");
+            header ("Pragma: no-cache");
+            header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+            header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+            header ("Content-Description: PHP Generated Data" );
+            echo "\xEF\xBB\xBF";
+    
+    
+            if($pesquisa != '') {
+                $participantes_treinamento = ParticipantesTreinamento::with('treinamento')->where('numero', 'like', "%".$pesquisa."%")
+                                                                    ->where('registro_treinamento_id','=', $treinamento_id)
+                                                                    ->orWhere('setor', 'like', "%".$pesquisa."%")
+                                                                    ->orWhere('nome', 'like', "%".$pesquisa."%")->get();
+            } else  {
+                $participantes_treinamento = ParticipantesTreinamento::all();
+            }
+            
+            return view('participantes_treinamento.exportar', compact('participantes_treinamento'));
         } 
         public function novo(Request $request) {
 
@@ -88,3 +148,4 @@ class ParticipantesTreinamentoController extends Controller
     }
         
 }
+

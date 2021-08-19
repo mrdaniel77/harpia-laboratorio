@@ -11,18 +11,79 @@ class RegistroTreinamentoController extends Controller
 
         public function index(Request $request) {
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'registro_treinamento-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+        
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $registro_treinamento = RegistroTreinamento::where('titulo', 'like', "%".$pesquisa."%")
+                                                        ->orWhere('carga_horaria', 'like', "%".$pesquisa."%")
+                                                        ->orWhere('data_inicial', 'like', "%".$pesquisa."%") 
+                                                        ->orWhere('data_final', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $registro_treinamento = RegistroTreinamento::where('titulo', 'like', "%".$pesquisa."%")
+                                                        ->orWhere('carga_horaria', 'like', "%".$pesquisa."%")
+                                                        ->orWhere('data_inicial', 'like', "%".$pesquisa."%") 
+                                                        ->orWhere('data_final', 'like', "%".$pesquisa."%")->all();
+            return view('registro_treinamento.exportar', compact('registro_treinamento'));
+        } else if($tipo == 'exportar') {
+            $registro_treinamento = RegistroTreinamento::all();
+            return view('registro_treinamento.exportar', compact('registro_treinamento'));
+
+        }else{
+            $registro_treinamento = RegistroTreinamento::paginate(10);
+        }
+
+            
+
+        if($request->is('api/registro_treinamento')){
+            return response()->json([$registro],200);
+        }else{
+            return view('registro_treinamento.index', compact('registro_treinamento','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'registro_treinamento-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
 
         if($pesquisa != '') {
-        $registro_treinamento = RegistroTreinamento::where('titulo', 'like', "%".$pesquisa."%")
-                                                     ->orWhere('carga_horaria', 'like', "%".$pesquisa."%")
-                                                     ->orWhere('data_inicial', 'like', "%".$pesquisa."%") 
-                                                     ->orWhere('data_final', 'like', "%".$pesquisa."%")->paginate(1000);
-        
-        } else {
-        $registro_treinamento = RegistroTreinamento::paginate(10);
+            $registro_treinamento = RegistroTreinamento::where('titulo', 'like', "%".$pesquisa."%")
+                                                        ->orWhere('carga_horaria', 'like', "%".$pesquisa."%")
+                                                        ->orWhere('data_inicial', 'like', "%".$pesquisa."%") 
+                                                        ->orWhere('data_final', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $registro_treinamento = RegistroTreinamento::all();
         }
-        return view('registro_treinamento.index', compact('registro_treinamento', 'pesquisa'));
-} 
+        
+        return view('registro_treinamento.exportar', compact('registro_treinamento'));
+    } 
         public function novo() {
         return view('registro_treinamento.form');
         }
@@ -63,3 +124,5 @@ class RegistroTreinamentoController extends Controller
     }
         
 }
+
+
