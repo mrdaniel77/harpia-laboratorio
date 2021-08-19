@@ -11,18 +11,76 @@ class ColaboradorController extends Controller
 {
     public function index(Request $request){
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
 
-        if($pesquisa != ''){
-            $colaboradores = Colaborador::where('nome', 'like', "%".$pesquisa."%")->paginate(1000);
-        }else {
-            $colaboradores = Colaborador::paginate(10);
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'colaboradores-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
         }
-        if($request->is('api/colaboradores')){
-            return response()->json([$colaboradores],200);
+        
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $colaborador = Colaborador::where('nome', 'like', "%".$pesquisa."%")
+                                ->orWhere('cpf', 'like', "%".$pesquisa."%")
+                                ->orWhere('email', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $colaborador = Colaborador::where('nome', 'like', "%".$pesquisa."%")
+                                ->orWhere('cpf', 'like', "%".$pesquisa."%")
+                                ->orWhere('email', 'like', "%".$pesquisa."%")->all();
+            return view('colaboradores.exportar', compact('colaborador'));
+        } else if($tipo == 'exportar') {
+            $colaborador = Colaborador::all();
+            return view('colaboradores.exportar', compact('colaborador'));
+
         }else{
-            return view('colaboradores.index', compact('colaboradores', 'pesquisa'));
+            $colaborador = Colaborador::paginate(10);
         }
-    }
+
+            
+
+        if($request->is('api/colaboradores')){
+            return response()->json([$registro],200);
+        }else{
+            return view('colaboradores.index', compact('colaborador','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'colaboradores-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
+
+        if($pesquisa != '') {
+            $colaborador = Colaborador::where('colaborador', 'like', "%".$pesquisa."%")
+                                ->orWhere('cpf', 'like', "%".$pesquisa."%")
+                                ->orWhere('email', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $colaborador = Colaborador::all();
+        }
+        
+        return view('colaboradores.exportar', compact('colaborador'));
+    } 
 
     public function novo(Request $request){
         $setores = Setor::select('setor')->get();

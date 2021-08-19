@@ -12,24 +12,82 @@ class CargosController extends Controller
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'cargos-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+        
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $cargo = Cargo::where('cargo', 'like', "%".$pesquisa."%")
+                                ->orWhere('tipo_formacao', 'like', "%".$pesquisa."%")
+                                ->orWhere('responsabilidades', 'like', "%".$pesquisa."%")
+                                ->orWhere('qualificacao', 'like', "%".$pesquisa."%")
+                                ->orWhere('treinamentos', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $cargo = Cargo::where('cargo', 'like', "%".$pesquisa."%")
+                                ->orWhere('tipo_formacao', 'like', "%".$pesquisa."%")
+                                ->orWhere('responsabilidades', 'like', "%".$pesquisa."%")
+                                ->orWhere('qualificacao', 'like', "%".$pesquisa."%")
+                                ->orWhere('treinamentos', 'like', "%".$pesquisa."%")->all();
+            return view('cargos.exportar', compact('cargo'));
+        } else if($tipo == 'exportar') {
+            $cargo = Cargo::all();
+            return view('cargos.exportar', compact('cargo'));
+
+        }else{
+            $cargo = Cargo::paginate(10);
+        }
+
+            
+
+        if($request->is('api/cargos')){
+            return response()->json([$registro],200);
+        }else{
+            return view('cargos.index', compact('cargo','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'cargos-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
 
         if($pesquisa != '') {
-            $cargos = Cargo::with('responsabilidades')->where('cargo', 'like', "%".$pesquisa."%")
-            ->orWhere('tipo_formacao','like', "%".$pesquisa."%")
-            ->orWhere('qualificacao','like', "%".$pesquisa."%")
-            ->orWhere('habilidades','like', "%".$pesquisa."%")
-            ->orWhere('treinamentos','like', "%".$pesquisa."%")
-            ->orWhere('xp_minima','like', "%".$pesquisa."%")
-            ->paginate(1000);
-        } else {
-            $cargos= Cargo::with('responsabilidades')->paginate(10);
+            $cargo = Cargo::where('cargo', 'like', "%".$pesquisa."%")
+                                ->orWhere('tipo_formacao', 'like', "%".$pesquisa."%")
+                                ->orWhere('responsabilidades', 'like', "%".$pesquisa."%")
+                                ->orWhere('qualificacao', 'like', "%".$pesquisa."%")
+                                ->orWhere('treinamentos', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $cargo = Cargo::all();
         }
-        if($request->is('api/cargos')){
-            return response()->json([$cargos],200);
-        }else{
-            return view('cargos.index', compact('cargos','pesquisa'));
-        }
-    }
+        
+        return view('cargos.exportar', compact('cargo'));
+    } 
 
     public function novo() {
         $tipo_formacao = $this->tipo_formacao;

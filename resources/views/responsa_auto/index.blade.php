@@ -30,10 +30,14 @@
       <div class="card">
         <div class="card-header">
           <a href="/responsa_auto/novo" class="btn btn-primary">
-            Nova Responsabilidades e autorizações
+            Nova Responsabilidades e Autorizações
             <i class="fas fa-plus"></i>
           </a>
           
+          <a href="/responsa_auto/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
+          </a>
 
           <div class="card-tools">
             <form action="">

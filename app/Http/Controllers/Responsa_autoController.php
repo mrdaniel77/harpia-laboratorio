@@ -17,20 +17,75 @@ class Responsa_autoController extends Controller
         $colaboradores_id = Colaborador::select('nome', 'id')->get();
         $cargo_id = Cargo::select('cargo', 'id')->get();
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'responsa_auto-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+        
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $responsa_auto = Responsa_auto::where('cargo_id', 'like', "%".$pesquisa."%")
+                                ->orWhere('colaborador_id', 'like', "%".$pesquisa."%")
+                                ->orWhere('autorizador_id', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $responsa_auto = Responsa_auto::where('cargo_id', 'like', "%".$pesquisa."%")
+                                ->orWhere('colaborador_id', 'like', "%".$pesquisa."%")
+                                ->orWhere('autorizador_id', 'like', "%".$pesquisa."%")->all();
+            return view('responsa_auto.exportar', compact('responsa_auto'));
+        } else if($tipo == 'exportar') {
+            $responsa_auto = Responsa_auto::all();
+            return view('responsa_auto.exportar', compact('responsa_auto'));
+
+        }else{
+            $responsa_auto = Responsa_auto::paginate(10);
+        }
+
+            
+
+        if($request->is('api/responsa_auto')){
+            return response()->json([$registro],200);
+        }else{
+            return view('responsa_auto.index', compact('responsa_auto','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'responsa_auto-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
 
         if($pesquisa != '') {
-            $responsa_auto = Responsa_auto::with('colaborador','autorizador','cargo')
-                                    ->where('assi_autorizado','like', "%".$pesquisa."%")
-                                    ->orWhere('assi_autorizador','like', "%".$pesquisa."%")
-                                    ->orWhereHas('colaborador', function($query) use ($pesquisa){
-                                        $query->where('nome','like', "%".$pesquisa."%");
-                                    })
-                                    ->paginate(10);
-        } else {
-            $responsa_auto = Responsa_auto::with('colaborador')->paginate(10);
-            
+            $responsa_auto = Responsa_auto::where('cargo_id', 'like', "%".$pesquisa."%")
+                                ->orWhere('colaborador_id', 'like', "%".$pesquisa."%")
+                                ->orWhere('autorizador_id', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $responsa_auto = Responsa_auto::all();
         }
-        return view('responsa_auto.index', compact('responsa_auto','pesquisa','colaboradores_id','cargo_id'));
+        
+        return view('responsa_auto.exportar', compact('responsa_auto'));
     } 
     public function gerar_pdf($id){
         

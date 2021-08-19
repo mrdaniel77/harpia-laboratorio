@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Fornecedor;
-use App\Models\Equipamentos_Insumos;
+use App\Models\Equipamentos;
 use App\Models\Respostas_lista_inspecao;
 
 class Inspecao_recebidos extends Model
@@ -25,7 +25,7 @@ class Inspecao_recebidos extends Model
     ];
 
     public function produto(){
-        return $this->belongsTo(Equipamentos_Insumos::class, 'produto_id','id');
+        return $this->belongsTo(Equipamentos::class, 'produto_id','id');
     }
 
     public function respostas(){

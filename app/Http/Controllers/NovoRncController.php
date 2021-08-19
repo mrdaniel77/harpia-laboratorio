@@ -20,22 +20,88 @@ class NovoRncController extends Controller
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
 
-        if($pesquisa != '') {
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'novo_rnc-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+        
+
+        if($pesquisa != '' && $tipo != 'exportar') {
             $novo_rnc = Novo_Rnc::where('codigo', 'like', "%".$pesquisa."%")
-                                  ->orWhere('revisao', 'like', "%".$pesquisa."%")
-                                  ->orWhere('numero', 'like', "%".$pesquisa."%")
-                                  ->orWhere('data_abertura', 'like', "%".$pesquisa."%")
-                                  ->orWhere('responsavel', 'like', "%".$pesquisa."%")
-                                  ->orWhere('classificacao_acao', 'like', "%".$pesquisa."%")
-                                  ->orWhere('origem', 'like', "%".$pesquisa."%")->paginate(1000);
+                                ->orWhere('revisao', 'like', "%".$pesquisa."%")
+                                ->orWhere('numero', 'like', "%".$pesquisa."%")
+                                ->orWhere('data_abertura', 'like', "%".$pesquisa."%")
+                                ->orWhere('responsavel', 'like', "%".$pesquisa."%")
+                                ->orWhere('classificacao_acao', 'like', "%".$pesquisa."%")
+                                ->orWhere('origem', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $novo_rnc = Novo_Rnc::where('codigo', 'like', "%".$pesquisa."%")
+                                ->orWhere('revisao', 'like', "%".$pesquisa."%")
+                                ->orWhere('numero', 'like', "%".$pesquisa."%")
+                                ->orWhere('data_abertura', 'like', "%".$pesquisa."%")
+                                ->orWhere('responsavel', 'like', "%".$pesquisa."%")
+                                ->orWhere('classificacao_acao', 'like', "%".$pesquisa."%")
+                                ->orWhere('origem', 'like', "%".$pesquisa."%")->all();
+            return view('novo_rnc.exportar', compact('novo_rnc'));
+        } else if($tipo == 'exportar') {
+            $novo_rnc = Novo_Rnc::all();
+            return view('novo_rnc.exportar', compact('novo_rnc'));
 
-        } else {
+        }else{
             $novo_rnc = Novo_Rnc::paginate(10);
         }
 
-        return view('novo_rnc.index', compact('novo_rnc','pesquisa'));
-    }
+            
+
+        if($request->is('api/novo_rnc')){
+            return response()->json([$registro],200);
+        }else{
+            return view('novo_rnc.index', compact('novo_rnc','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'novo_rnc-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
+
+        if($pesquisa != '') {
+            $novo_rnc = Novo_Rnc::where('codigo', 'like', "%".$pesquisa."%")
+                                ->orWhere('revisao', 'like', "%".$pesquisa."%")
+                                ->orWhere('numero', 'like', "%".$pesquisa."%")
+                                ->orWhere('data_abertura', 'like', "%".$pesquisa."%")
+                                ->orWhere('responsavel', 'like', "%".$pesquisa."%")
+                                ->orWhere('classificacao_acao', 'like', "%".$pesquisa."%")
+                                ->orWhere('origem', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $novo_rnc = Novo_Rnc::all();
+        }
+        
+        return view('novo_rnc.exportar', compact('novo_rnc'));
+    } 
     public function novo() {
 
         $colaborador = Colaborador::select('nome')->get();
@@ -92,4 +158,3 @@ class NovoRncController extends Controller
         return redirect('novo_rnc')->with('success', 'Deletado com sucesso!');
     }
 }
-

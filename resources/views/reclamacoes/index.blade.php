@@ -34,6 +34,11 @@
             <i class="fas fa-plus"></i>
           </a>
 
+          <a href="/reclamacoes/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
+          </a>
+
           <div class="card-tools">
             <form action="">
               <div class="input-group input-group" style="width: 150px;">
@@ -63,7 +68,7 @@
                     
                 </tr>
               </thead>
-              @foreach ($reclamacoes as $item)  
+              @foreach ($reclamacao as $item)  
                 <tbody>
                   <tr>
                       <td>{{ $item->id }}</td>
@@ -88,7 +93,7 @@
               @endforeach
           </table>
           <br>
-            @if(count($reclamacoes) < 1)
+            @if(count($reclamacao) < 1)
             <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
               Nenhum registro encontrado!
             </div>
@@ -98,7 +103,7 @@
       </div>
       <div class="row">
         <div class="col">
-          {{ $reclamacoes->links() }}
+          {{ $reclamacao->links() }}
         </div>
       </div>
       

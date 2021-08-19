@@ -34,6 +34,10 @@
             <i class="fas fa-plus"></i>
           </a>
           
+          <a href="/c_temperatura/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
+          </a>
 
           <div class="card-tools">
             <form action="">
@@ -63,7 +67,7 @@
                     <th>Ações</th>
                 </tr>
               </thead>
-              @foreach ($c_temperaturas as $item)
+              @foreach ($c_temperatura as $item)
               <tbody>
                 <tr>
                   <td>{{ $item->id }}</td>
@@ -85,7 +89,7 @@
 
           </table>
           <br>
-            @if(count($c_temperaturas) < 1)
+            @if(count($c_temperatura) < 1)
             <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
               Nenhum registro encontrado!
             </div>
@@ -95,7 +99,7 @@
       </div>
       <div class="row">
         <div class="col">
-          {{ $c_temperaturas->links() }}
+          {{ $c_temperatura->links() }}
         </div>
       </div>
       
