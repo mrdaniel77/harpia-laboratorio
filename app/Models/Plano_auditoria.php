@@ -44,7 +44,12 @@ class Plano_auditoria extends Model
     ];
 
 
+    public function atribuicoes_lider()
+    {
+        return $this->hasMany(Atribuicoes_lider::class, 'lider_id', 'id');
+    }
 
+    
     public function setores()
     {
         return $this->hasOne(Setores::class, 'id', 'setor_id');

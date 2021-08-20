@@ -20,7 +20,7 @@ class CargosController extends Controller
             ->orWhere('habilidades','like', "%".$pesquisa."%")
             ->orWhere('treinamentos','like', "%".$pesquisa."%")
             ->orWhere('xp_minima','like', "%".$pesquisa."%")
-            ->paginate(1000);
+            ->paginate(10);
         } else {
             $cargos= Cargo::with('responsabilidades')->paginate(10);
         }

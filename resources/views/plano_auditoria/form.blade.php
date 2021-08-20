@@ -219,9 +219,11 @@
                           </div>                          
                           <div class="col-6">
                             <br>
+                            @if(isset($plano_auditoria) && count($plano_auditoria->atribuicoes_lider) > 0)
+                            @foreach ($plano_auditoria->atribuicoes_lider as $item)
                             <div id="inputFormRow">
                               <div class="input-group mb-3"> 
-                                <input type="text" name="" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off" value="">
+                                <input type="text" name="atribuicoes_lider[]" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off" value="{{ $item->nome }}">
                                 <div class="input-group-append">                
                                   <button id="removeRow" type="button" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
@@ -229,6 +231,20 @@
                                 </div>
                               </div>
                             </div>
+                            @endforeach
+                            @else
+                            <div id="inputFormRow">
+                              <div class="input-group mb-3"> 
+                                <input type="text" name="atribuicoes_lider[]" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off" value="">
+                                <div class="input-group-append">                
+                                  <button id="removeRow" type="button" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            @endif
+
                               <div id="newRow"></div>
                               <button id="addRow" type="button" class="btn btn-info"> 
                                 <i class="fas fa-plus"></i>
@@ -514,7 +530,7 @@
       var html = '';
       html += '<div id="inputFormRow">';
       html += '<div class="input-group mb-3">';
-      html += '<input type="text" name="" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off">';
+      html += '<input type="text" name="atribuicoes_lider[]" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off">';
       html += '<div class="input-group-append">';
       html += '<button id="removeRow" type="button" class="btn btn-danger"> <i class="fas fa-trash"></i></button>';
       html += '</div>';
