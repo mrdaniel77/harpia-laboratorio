@@ -81,6 +81,7 @@
                     <td>{{ $item->localizacao }}</td>
                     <td>{{ $item->documento}}</td>
                     <td>
+                      
                       <a href="documento/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>

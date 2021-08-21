@@ -20,25 +20,85 @@ class EquipamentoController extends Controller
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'equipamentos-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+        
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $equipamentos = Equipamentos::where('equipamento', 'like', "%".$pesquisa."%")
+                                        ->orWhere('nome', 'like', "%".$pesquisa."%")
+                                        ->orWhere('quantidade', 'like', "%".$pesquisa."%")
+                                        ->orWhere('modelo', 'like', "%".$pesquisa."%")
+                                        ->orWhere('codigo', 'like', "%".$pesquisa."%")
+                                        ->orWhere('materiais', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $equipamentos = Equipamentos::where('equipamento', 'like', "%".$pesquisa."%")
+                                        ->orWhere('nome', 'like', "%".$pesquisa."%")
+                                        ->orWhere('quantidade', 'like', "%".$pesquisa."%")
+                                        ->orWhere('modelo', 'like', "%".$pesquisa."%")
+                                        ->orWhere('codigo', 'like', "%".$pesquisa."%")
+                                        ->orWhere('materiais', 'like', "%".$pesquisa."%")->all();
+            return view('equipamentos.exportar', compact('equipamentos'));
+        } else if($tipo == 'exportar') {
+            $equipamentos = Equipamentos::all();
+            return view('equipamentos.exportar', compact('equipamentos'));
+
+        }else{
+            $equipamentos = Equipamentos::paginate(10);
+        }
+
+            
+
+        if($request->is('api/equipamentos')){
+            return response()->json([$registro],200);
+        }else{
+            return view('equipamentos.index', compact('equipamentos','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'equipamentos-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
 
         if($pesquisa != '') {
-        $equipamentos = Equipamentos::where('equipamento', 'like', "%".$pesquisa."%")
-                                      ->orWhere('nome', 'like', "%".$pesquisa."%")
-                                      ->orWhere('quantidade', 'like', "%".$pesquisa."%")
-                                      ->orWhere('modelo', 'like', "%".$pesquisa."%")
-                                      ->orWhere('codigo', 'like', "%".$pesquisa."%")
-                                      ->orWhere('materiais', 'like', "%".$pesquisa."%")->paginate(1000);
-                                      
+            $equipamentos = Equipamentos::where('equipamento', 'like', "%".$pesquisa."%")
+                                        ->orWhere('nome', 'like', "%".$pesquisa."%")
+                                        ->orWhere('quantidade', 'like', "%".$pesquisa."%")
+                                        ->orWhere('modelo', 'like', "%".$pesquisa."%")
+                                        ->orWhere('codigo', 'like', "%".$pesquisa."%")
+                                        ->orWhere('materiais', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $equipamentos = Equipamentos::all();
+        }
         
-        } else {
-            $equipamentos = Equipamentos::with('fornecedor')->paginate(10);
-        }
-        if($request->is('api/equipamentos')){
-            return response()->json([$equipamentos],200);
-        }else{
-            return view('equipamentos.index', compact('equipamentos', 'pesquisa'));
-        }
-    }
+        return view('equipamentos.exportar', compact('equipamentos'));
+    } 
     public function novo(Request $request) {
         $fornecedores = Fornecedor::select('id','razao_social')->get();
         $setor = Setor::select('id','setor')->get();
@@ -117,3 +177,5 @@ class EquipamentoController extends Controller
     }
         
 }
+
+

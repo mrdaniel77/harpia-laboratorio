@@ -57,11 +57,6 @@
               <i class="fas fa-plus"></i>
             </a>
 
-            <a href="/documento/exportar_pdf_documentos?pesquisa={{$documento->id}}<?php echo Request::get('pesquisa'); ?>" class="btn btn-danger" target="_blank">
-                Gerar PDF
-                <i class="fas fa-file-pdf"></i>
-              </a>
-
                 <div class="col card-body">
 
                     <input type="hidden" name="id" value="@isset($documento){{$documento->id}}@endisset">

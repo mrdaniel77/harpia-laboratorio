@@ -163,13 +163,13 @@ class DocumentoController extends Controller
         $documento = Documento::find($id);
         if(!empty($documento)){
             $documento->delete();
-            if($request->path == `api/documentos/deletar/${id}`){
+            if($request->is(`api/documentos/deletar/${id}`)){
                 return response()->json(['success' => 'Deletado com sucesso!'], 200);
             }else{
                 return redirect('documento')->with('success', 'Deletado com sucesso!');
             }
         } else {
-            if($request->path == `api/documentos/deletar/${id}`){
+            if($request->is(`api/documentos/deletar/${id}`)){
                 return response()->json(['error' => 'Registro não encontrado!'], 404);
             }else{
                 return redirect('documento')->with('danger', 'Registro não encontrado!');

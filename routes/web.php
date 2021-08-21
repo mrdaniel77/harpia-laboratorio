@@ -14,7 +14,6 @@ use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AutenticacaoController;
 use App\Http\Controllers\SetoresController;
-use App\Http\Controllers\ListaMestraController;
 use App\Http\Controllers\ProcedimentoController;
 use App\Http\Controllers\RegistroTreinamentoController;
 use App\Http\Controllers\ParticipantesTreinamentoController;
@@ -33,6 +32,7 @@ use App\Http\Controllers\IndiceDesempenhoController;
 use App\Http\Controllers\PlanoDesempenhoController;
 use App\Http\Controllers\Responsa_autoController;
 use App\Http\Controllers\Plano_auditoriaController;
+use App\Http\Controllers\PlanoManutencaoController;
 
 
 //reset senha
@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/equipamentos/editar/{id}', [EquipamentoController::class, 'editar'])->name('equipamentos.editar');
     Route::post('/equipamentos/salvar', [EquipamentoController::class, 'salvar'])->name('equipamentos.salvar');
     Route::get('/equipamentos/deletar/{id}', [EquipamentoController::class, 'deletar'])->name('equipamentos.deletar');
+    Route::get('/equipamentos/exportar', [EquipamentoController::class, 'exportar'])->name('equipamentos.exportar');
 
     Route::get('/colaboradores', [ColaboradorController::class, 'index'])->name('colaboradores');
     Route::get('/colaboradores/novo', [ColaboradorController::class, 'novo'])->name('colaboradores.novo');
@@ -83,18 +84,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/servicos/editar/{id}', [ServicoController::class, 'editar'])->name('servicos.editar');
     Route::post('servicos/salvar', [ServicoController::class, 'salvar'])->name('servicos.salvar');
     Route::get('/servicos/deletar/{id}', [ServicoController::class, 'deletar'])->name('servicos.deletar');
+    Route::get('/servicos/exportar', [ServicoController::class, 'exportar'])->name('servicos.exportar');
 
     Route::get('/fornecedores', [FornecedorController::class, 'index'])->name('fornecedores');
     Route::get('/fornecedores/novo', [FornecedorController::class, 'novo'])->name('fornecedores.novo');
     Route::get('/fornecedores/editar/{id}', [FornecedorController::class, 'editar'])->name('fornecedores.editar');
     Route::post('fornecedores/salvar', [FornecedorController::class, 'salvar'])->name('fornecedores.salvar');
     Route::get('/fornecedores/deletar/{id}', [FornecedorController::class, 'deletar'])->name('fornecedores.deletar');
+    Route::get('/fornecedores/exportar', [FornecedorController::class, 'exportar'])->name('fornecedores.exportar');
 
     Route::get('/setores', [SetoresController::class, 'index'])->name('setores');
     Route::get('/setores/novo', [SetoresController::class, 'novo'])->name('setores.novo');
     Route::get('/setores/editar/{id}', [SetoresController::class, 'editar'])->name('setores.editar');
     Route::post('setores/salvar', [SetoresController::class, 'salvar'])->name('setores.salvar');
     Route::get('/setores/deletar/{id}', [SetoresController::class, 'deletar'])->name('setores.deletar');
+    Route::get('/setores/exportar', [SetoresController::class, 'exportar'])->name('setores.exportar');
     
     Route::get('/registro_treinamento', [RegistroTreinamentoController::class, 'index'])->name('registro_treinamento');
     Route::get('/registro_treinamento/novo', [RegistroTreinamentoController::class, 'novo'])->name('registro_treinamento.novo');
@@ -162,12 +166,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/acoes_propostas/exportar', [AcoesPropostasController::class, 'exportar'])->name('acoes_propostas.exportar');
 
-    Route::get('/lista_mestras', [ListaMestraController::class, 'index'])->name('lista_mestra');
-    Route::get('/lista_mestras/novo', [ListaMestraController::class, 'novo'])->name('lista_mestra.novo');
-    Route::get('/lista_mestras/editar/{id}', [ListaMestraController::class, 'editar'])->name('lista_mestra.editar');
-    Route::post('lista_mestras/salvar', [ListaMestraController::class, 'salvar'])->name('lista_mestra.salvar');
-    Route::get('/lista_mestras/deletar/{id}', [ListaMestraController::class, 'deletar'])->name('lista_mestra.deletar');
-
     Route::get('/inspecao_recebidos', [InspecaoRecebidosController::class, 'index'])->name('inspecao_recebidos');
     Route::get('/inspecao_recebidos/novo', [InspecaoRecebidosController::class, 'novo'])->name('inspecao_recebidos.novo');
     Route::get('/inspecao_recebidos/editar/{id}', [InspecaoRecebidosController::class, 'editar'])->name('inspecao_recebidos.editar');
@@ -204,9 +202,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mapa_controle/editar/{id}', [MapaControleRegistrosController::class, 'editar'])->name('mapa_controle.editar');
     Route::post('mapa_controle/salvar', [MapaControleRegistrosController::class, 'salvar'])->name('mapa_controle.salvar');
     Route::get('/mapa_controle/deletar/{id}', [MapaControleRegistrosController::class, 'deletar'])->name('mapa_controle.deletar');
-    
     Route::get('/mapa_controle/exportar', [MapaControleRegistrosController::class, 'exportar'])->name('mapa_controle.exportar');
     Route::get('/mapa_controle/exportar_pdf', [MapaControleRegistrosController::class, 'exportar_pdf'])->name('mapa_controle.exportar_pdf');
+
     Route::get('/responsa_auto', [Responsa_autoController::class, 'index'])->name('responsa_auto');
     Route::get('/responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
     Route::get('/responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
@@ -242,6 +240,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('responsa_auto/novo', [Responsa_autoController::class, 'novo'])->name('responsa_auto.novo');
     Route::get('responsa_auto/editar/{id}', [Responsa_autoController::class, 'editar'])->name('responsa_auto.editar');
     Route::post('responsa_auto/salvar', [Responsa_autoController::class, 'salvar'])->name('responsa_auto.salvar');
+
+    Route::get('/plano_manutencao', [PlanoManutencaoController::class, 'index'])->name('plano_manutencao');
+    Route::get('/plano_manutencao/novo', [PlanoManutencaoController::class, 'novo'])->name('plano_manutencao.novo');
+    Route::get('/plano_manutencao/editar/{id}', [PlanoManutencaoController::class, 'editar'])->name('plano_manutencao.editar');
+    Route::post('/plano_manutencao/salvar', [PlanoManutencaoController::class, 'salvar'])->name('plano_manutencao.salvar');
+    Route::get('/plano_manutencao/deletar/{id}', [PlanoManutencaoController::class, 'deletar'])->name('plano_manutencao.deletar');
+    Route::get('/plano_manutencao/exportar', [PlanoManutencaoController::class, 'exportar'])->name('plamo_manutencao.exportar');
 
 });
 

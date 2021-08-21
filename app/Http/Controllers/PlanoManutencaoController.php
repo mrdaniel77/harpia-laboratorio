@@ -20,7 +20,6 @@ class PlanoManutencaoController extends Controller
     } 
     public function novo() {
 
-        $tipos_unidade = $this->tipos_unidade;
         return view('plano_manutencao.form', compact('tipos_unidade'));
     }
     public function editar($id) {
