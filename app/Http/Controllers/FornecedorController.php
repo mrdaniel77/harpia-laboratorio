@@ -8,21 +8,85 @@ use App\Models\Fornecedor;
 
 class FornecedorController extends Controller
 {
-    public $tipos = ['servico', 'produto' ];
+    public $tipos = ['Serviço', 'Produto' ];
 
     public function index(Request $request) {
-        $pesquisa = $request->pesquisa;
+        $pesquisa = $request->pesquisa;     
+        $tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'fornecedores-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
         
-        if($pesquisa != '') {
-            $fornecedores = Fornecedor::where('metodos_definidos', 'like', "%".$pesquisa."%")->paginate(1000);
-        } else {
-            $fornecedores = Fornecedor::paginate(10);
-        }
-        if($request->is('api/fornecedores')){
-            return response()->json([$fornecedores],200);
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $fornecedor = Fornecedor::where('tipo', 'like', "%".$pesquisa."%")
+                                    ->orWhere('cnpj', 'like', "%".$pesquisa."%")
+                                    ->orWhere('razao_social', 'like', "%".$pesquisa."%")
+                                    ->orWhere('telefone', 'like', "%".$pesquisa."%")
+                                    ->orWhere('email', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $fornecedor = Fornecedor::where('tipo', 'like', "%".$pesquisa."%")
+                                    ->orWhere('cnpj', 'like', "%".$pesquisa."%")
+                                    ->orWhere('razao_social', 'like', "%".$pesquisa."%")
+                                    ->orWhere('telefone', 'like', "%".$pesquisa."%")
+                                    ->orWhere('email', 'like', "%".$pesquisa."%")->all();
+            return view('fornecedores.exportar', compact('fornecedor'));
+        } else if($tipo == 'exportar') {
+            $fornecedor = Fornecedor::all();
+            return view('fornecedores.exportar', compact('fornecedor'));
+
         }else{
-            return view('fornecedores.index', compact('fornecedores'));
+            $fornecedor = Fornecedor::paginate(10);
         }
+
+            
+
+        if($request->is('api/fornecedores')){
+            return response()->json([$registro],200);
+        }else{
+            return view('fornecedores.index', compact('fornecedor','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'fornecedores-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
+
+        if($pesquisa != '') {
+            $fornecedor = Fornecedor::where('tipo', 'like', "%".$pesquisa."%")
+                                    ->orWhere('cnpj', 'like', "%".$pesquisa."%")
+                                    ->orWhere('razao_social', 'like', "%".$pesquisa."%")
+                                    ->orWhere('telefone', 'like', "%".$pesquisa."%")
+                                    ->orWhere('email', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $fornecedor = Fornecedor::all();
+        }
+        
+        return view('fornecedores.exportar', compact('fornecedor'));
     } 
     public function novo() {
         $tipos = $this->tipos;
@@ -63,3 +127,6 @@ class FornecedorController extends Controller
         }
     }
 }
+
+
+

@@ -13,23 +13,78 @@ class ServicoController extends Controller
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
+        $tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'servicos-'.$d.'.xls';
+            // Configurações header para forçar o download
+                header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+                header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+                header ("Cache-Control: no-cache, must-revalidate");
+                header ("Pragma: no-cache");
+                //header ("Content-type: application/x-msexcel; charset=UTF-8");
+                header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+                header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+                header ("Content-Description: PHP Generated Data" );
+                echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $servico = Servico::where('descricao', 'like', "%".$pesquisa."%")
+                                        ->orWhere('tipo_material', 'like', "%".$pesquisa."%")
+                                        ->orWhere('tipo_servico', 'like', "%".$pesquisa."%")
+                                        ->orWhere('servico_critico', 'like', "%".$pesquisa."%")->paginate(1000);
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $servico = Servico::where('descricao', 'like', "%".$pesquisa."%")
+                                        ->orWhere('tipo_material', 'like', "%".$pesquisa."%")
+                                        ->orWhere('tipo_servico', 'like', "%".$pesquisa."%")
+                                        ->orWhere('servico_critico', 'like', "%".$pesquisa."%")->all();
+            return view('servicos.exportar', compact('servico'));
+        } else if($tipo == 'exportar') {
+            $servico = Servico::all();
+            return view('servicos.exportar', compact('servico'));
+
+        }else{
+            $servico = Servico::paginate(10);
+        }
+
+            
+
+        if($request->is('api/servicos')){
+            return response()->json([$registro],200);
+        }else{
+            return view('servicos.index', compact('servico','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'servicos-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
 
         if($pesquisa != '') {
-            $servicos = Servico::where('descricao', 'like', "%".$pesquisa."%")
-            ->orWhere('tipo_servico','like', "%".$pesquisa."%")
-            ->orWhere('tipo_material','like', "%".$pesquisa."%")
-            ->orWhere('servico_critico','like', "%".$pesquisa."%")
-            ->paginate(1000);
-        } else {
-            $servicos = Servico::paginate(10);
+            $servico = Servico::where('descricao', 'like', "%".$pesquisa."%")
+                                        ->orWhere('tipo_material', 'like', "%".$pesquisa."%")
+                                        ->orWhere('tipo_servico', 'like', "%".$pesquisa."%")
+                                        ->orWhere('servico_critico', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $servico = Servico::all();
         }
-      
-        if($request->is('api/servicos')){
-            return response()->json([$servicos],200);
-        }else{
-            return view('servicos.index', compact('servicos','pesquisa'));
-        }
-    }
+        
+        return view('servicos.exportar', compact('servico'));
+    } 
     public function novo() {
         $tipo_material = $this->tipo_material;
         $tipo_servico = $this->tipo_servico;
@@ -66,13 +121,13 @@ class ServicoController extends Controller
         $servico = Servico::find($id);
         if(!empty($servico)){
             $servico->delete();
-            if($request->path == `api/servicos/deletar/${id}`){
+            if($request->is(`api/servicos/deletar/${id}`)){
                 return response()->json(['success' => 'Deletado com sucesso!'], 200);
             }else{
                 return redirect('servicos')->with('success', 'Deletado com sucesso!');
             }
         } else {
-            if($request->path == `api/servicos/deletar/${id}`){
+            if($request->is(`api/servicos/deletar/${id}`)){
                 return response()->json(['error' => 'Registro não encontrado!'], 404);
             }else{
                 return redirect('servicos')->with('danger', 'Registro não encontrado!');

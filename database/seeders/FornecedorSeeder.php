@@ -25,7 +25,7 @@ class FornecedorSeeder extends Seeder
        
         DB::table('fornecedores')->insert([
       [      
-        'tipo' => rand(1,0) == 0 ? 'produto' : 'servico',
+        'tipo' => rand(1,0) == 0 ? 'Produto' : 'Serviço',
         'cnpj' => $faker->numberBetween($min = 10, $max = 99).'.'.$faker->numberBetween($min = 100, $max = 999).'.'.$faker->numberBetween($min = 100, $max = 999).'/'.$faker->numberBetween($min = 1000, $max = 9999).'-'.$faker->numberBetween($min = 10, $max = 99),
         'razao_social' => $faker->name(),
         'email' => $faker->email(),
