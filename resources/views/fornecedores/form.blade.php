@@ -141,7 +141,7 @@
         <div class="col-2">
             <div class="form-group">
                 <label for="uf" class="form-label">UF:</label>
-                <input type="text" name="uf" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->uf}}@else{{ old('uf')}}@endif">
+                <input type="text" name="uf" maxlength="2" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->uf}}@else{{ old('uf')}}@endif">
             </div>
         </div>   
     </div>

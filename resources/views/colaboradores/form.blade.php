@@ -74,7 +74,7 @@
                         <div class="col-4">
                             <div class="form-outline">
                                 <label for="telefone" class="form-label">Telefone:</label>
-                                <input type="text" name="telefone" class="form-control telefone" value="@if(isset($coalborador)){{$coalborador->telefone}}@else{{ old('telefone') }}@endif">
+                                <input type="text" name="telefone" class="form-control telefone" value="@if(isset($colaborador)){{$colaborador->telefone}}@else{{ old('telefone') }}@endif">
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                                 <select name="setor" id="setor" class="form-control">
                                     <option value="">selecione</option>
                                     @foreach ($setores as $key => $tipo)
-                                        <option class=" setor" value="{{$tipo->setor}}"@if(isset($colaborador) && $colaborador->setor == $tipo->setor) selected @elseif(old('setor') == $tipo->setor) selected @endif>{{$tipo->setor}}</option>
+                                        <option value="{{$tipo->setor}}"@if(isset($colaborador) && $colaborador->setor == $tipo->setor) selected @elseif(old('setor') == $tipo->setor) selected @endif>{{$tipo->setor}}</option>
                                     @endforeach
                                 </select>
                             </div>

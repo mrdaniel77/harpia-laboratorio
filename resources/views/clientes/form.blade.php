@@ -140,8 +140,8 @@
                 <label for="tipo_unidade" class="form-label">Tipo de Unidade:</label>
                 <select name="tipo_unidade" id="tipo_unidade" class="form-control">
                     <option value="">selecione</option>
-                    @foreach ($tipos_unidade as $key => $tipo)
-                        <option class=" tipo_unidade" value="{{$tipo}}"@if(isset($cliente) && $cliente->tipo_unidade == $tipo) selected @elseif(old('tipo_unidade') == $tipo) selected @endif>{{$tipo}}</option>
+                    @foreach ($tipo_unidade as $key => $tipo)
+                        <option value="{{$tipo}}"@if(isset($cliente) && $cliente->tipo_unidade == $tipo) selected @elseif(old('tipo_unidade') == $tipo) selected @endif>{{$tipo}}</option>
                     @endforeach
                 </select>
             </div>

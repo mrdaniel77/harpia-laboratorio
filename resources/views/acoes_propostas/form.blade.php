@@ -2,7 +2,7 @@
 @include('layout.navbar')
 @include('layout.sidebar')
 
-
+<script>
   @if(isset($acoes_propostas) && $acoes_propostas->necessario_prorrogacao == 'sim' )
       .novo_prazo{
           display: initial;
@@ -12,7 +12,7 @@
           display: none;
       }
   @endif
-
+</script>
  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

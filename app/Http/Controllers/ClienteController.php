@@ -10,7 +10,7 @@ use PDF;
 
 class ClienteController extends Controller
 {
-    public $tipos_unidade = ['Matriz', 'Filial'];
+    public $tipo_unidade = ['Matriz', 'Filial'];
 
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;
@@ -100,14 +100,14 @@ class ClienteController extends Controller
     } 
     public function novo() {
 
-        $tipos_unidade = $this->tipos_unidade;
-        return view('clientes.form', compact('tipos_unidade'));
+        $tipo_unidade = $this->tipo_unidade;
+        return view('clientes.form', compact('tipo_unidade'));
     }
     public function editar($id) {
 
         $cliente = Cliente::find($id);
-        $tipos_unidade = $this->tipos_unidade;
-        return view('clientes.form', compact('cliente', 'tipos_unidade'));
+        $tipo_unidade = $this->tipo_unidade;
+        return view('clientes.form', compact('cliente', 'tipo_unidade'));
     }
     public function salvar(ClienteRequest $request) {
 
