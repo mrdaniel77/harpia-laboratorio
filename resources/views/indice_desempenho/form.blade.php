@@ -218,19 +218,19 @@
         var conformidade = ((pedidos_entregues) - (pedidos_devolvidos * 0.80) - (pedidos_nao_conforme * 0.20) / pedidos_entregues) * 100;
         var calculo_idf = (pontualidade * 0,60) + (conformidade * 0,40)
 
-        if(calculo_idf >= (calculo_idf * 0.90)){
+        if(calculo_idf >= 90){
                 $('#desempenho_fornecedor').removeClass();
                 $('#desempenho_fornecedor').addClass('form-control bg-success');
                 $('#desempenho_fornecedor').val('A');
-        }else if(calculo_idf >= (calculo_idf * 0.50) && calculo_idf < (calculo_idf * 0.90)){
+        }else if(calculo_idf >= 50 && calculo_idf < 90){
                 $('#desempenho_fornecedor').removeClass();
                 $('#desempenho_fornecedor').addClass('form-control bg-warning');
                 $('#desempenho_fornecedor').val('B');
-        }else if(calculo_idf >= (calculo_idf * 0.20) && calculo_idf < (calculo_idf * 0.50)){
+        }else if(calculo_idf >= 20 && calculo_idf < 50){
                 $('#desempenho_fornecedor').removeClass();
                 $('#desempenho_fornecedor').addClass('form-control bg-orange');
                 $('#desempenho_fornecedor').val('C');
-        }else if(calculo_idf < (calculo_idf * 0.20)){
+        }else if(calculo_idf < 20){
                 $('#desempenho_fornecedor').removeClass();
                 $('#desempenho_fornecedor').addClass('form-control bg-danger');
                 $('#desempenho_fornecedor').val('D');

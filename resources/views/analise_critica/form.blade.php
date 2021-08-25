@@ -46,13 +46,9 @@
                                         pessoal do laboratório?</label>
                                         <br>
                                         <label for="sim">SIM</label>
-                                        <input type="radio" class="tipo" name="metodos_definidos" value="sim" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas)&& $analise_criticas->metodos_definidos == "sim") checked @elseif(old("metodos_definidos") == "sim" ) checked @endif>
+                                        <input type="radio" class="tipo" name="metodos_definidos" value="sim" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas)&& $analise_criticas->metodos_definidos == "sim") checked @elseif(old("metodos_definidos") == "sim" ) checked @endif>
                                         <label for="nao">NÃO</label>
-                                        <input type="radio" class="tipo" name="metodos_definidos" value="nao" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->metodos_definidos == "nao") checked @elseif(old("metodos_definidos") == "nao" )checked @endif>
+                                        <input type="radio" class="tipo" name="metodos_definidos" value="nao" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->metodos_definidos == "nao") checked @elseif(old("metodos_definidos") == "nao" )checked @endif>
                                 </div>
                             </div>                            
                             <div class="col-12 formu">
@@ -60,13 +56,9 @@
                                     <label for="codigo" class="form-label">O laboratório possui pessoal qualificado para a realização dos ensaios?</label>
                                         <br>
                                         <label for="sim">SIM</label>
-                                        <input type="radio" name="pessoal_qualificado" value="sim" style="
-																				margin-left: 3px;
-																				margin-right: 14px"  @if(isset($analise_criticas) && $analise_criticas->pessoal_qualificado == "sim") checked @elseif(old("pessoal_qualificado") == "sim") checked @endif>
+                                        <input type="radio" name="pessoal_qualificado" value="sim" style="margin-left: 3px; margin-right: 14px"  @if(isset($analise_criticas) && $analise_criticas->pessoal_qualificado == "sim") checked @elseif(old("pessoal_qualificado") == "sim") checked @endif>
                                         <label for="nao">NÃO</label>
-                                        <input type="radio" class="tipo" name="pessoal_qualificado" value="nao" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->pessoal_qualificado == "nao") checked @elseif(old("pessoal_qualificado") == "nao" ) checked @endif>
+                                        <input type="radio" class="tipo" name="pessoal_qualificado" value="nao" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->pessoal_qualificado == "nao") checked @elseif(old("pessoal_qualificado") == "nao" ) checked @endif>
                                 </div>
                             </div>
                         </div>                        
@@ -76,27 +68,19 @@
                                     <label for="codigo" class="form-label">O laboratório possui capacidade e recursos para atender aos requisitos do cliente?</label>
                                         <br>
                                         <label for="sim">SIM</label>
-                                        <input type="radio" class="tipo" name="capacidade_recursos" value="sim" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->capacidade_recursos == "sim") checked @elseif(old("capacidade_recursos") == "sim") checked @endif>
+                                        <input type="radio" class="tipo" name="capacidade_recursos" value="sim" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->capacidade_recursos == "sim") checked @elseif(old("capacidade_recursos") == "sim") checked @endif>
                                         <label for="nao">NÃO</label>
-                                        <input type="radio" class="tipo" name="capacidade_recursos" value="nao" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->capacidade_recursos == "nao") checked @elseif(old("capacidade_recursos") == "nao" ) checked @endif>
+                                        <input type="radio" class="tipo" name="capacidade_recursos" value="nao" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->capacidade_recursos == "nao") checked @elseif(old("capacidade_recursos") == "nao" ) checked @endif>
                                 </div>
                             </div>
                             <div class="col-12 ">
                                 <div class="form-group formu">
                                     <label for="codigo" class="form-label">O método de ensaio é adequado às necessidades do cliente?</label>
                                         <br>
-                                        <label for="sim"  >SIM</label>
-                                        <input type="radio" class="tipo" name="metodo_ensaio" value="sim" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->metodo_ensaio == "sim") checked @elseif(old("metodo_ensaio") == "sim") checked @endif>
+                                        <label for="sim" >SIM</label>
+                                        <input type="radio" class="tipo" name="metodo_ensaio" value="sim" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->metodo_ensaio == "sim") checked @elseif(old("metodo_ensaio") == "sim") checked @endif>
                                         <label for="nao" class="si">NÃO</label>
-                                        <input type="radio" class="tipo" name="metodo_ensaio" value="nao" style="
-																				margin-left: 3px;
-																				margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->metodo_ensaio == "nao") checked @elseif(old("metodo_ensaio") == "nao" ) checked @endif>
+                                        <input type="radio" class="tipo" name="metodo_ensaio" value="nao" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->metodo_ensaio == "nao") checked @elseif(old("metodo_ensaio") == "nao" ) checked @endif>
                                 </div>
                             </div>
                         </div> 
@@ -105,14 +89,10 @@
                                 <div class="card-body">
                                         <div class="form-group">
                                             <label for="codigo" class="form-label">Aprovado ?   </label>                                                
-                                                <label for="sim">SIM</label>'
-                                                <input type="radio" class="moto" name="aprovado" id="sim" value="sim"style="
-																				'				margin-left: 3px;
-																								margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->aprovado == "sim") checked @elseif(old("aprovado") == "1") checked @endif>
-                                                <label for="nao">NÃO</label>
-                                                <input type="radio" class="moto" name="aprovado" id="nao" value="nao" style="
-																								margin-left: 3px;
-																								margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->aprovado == "nao") checked @elseif(old("aprovado") == "nao") checked @endif>
+                                                <label for="aprovado">SIM</label>
+                                                <input type="radio" class="aprovado" name="aprovado" id="aprovado_sim" value="sim"style="margin-left: 3px;margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->aprovado == "sim") checked @elseif(old("aprovado") == "1") checked @endif>
+                                                <label for="aprovado">NÃO</label>
+                                                <input type="radio" class="aprovado" name="aprovado" id="aprovado_nao" value="nao" style="margin-left: 3px; margin-right: 14px" @if(isset($analise_criticas) && $analise_criticas->aprovado == "nao") checked @elseif(old("aprovado") == "nao") checked @endif>
                                                 <textarea  readonly name="justificativa_reprovacao" class="form-control justificativa" placeholder="Justificativa da Reprovação" rows="3" >@if(isset($analise_criticas)){{$analise_criticas->justificativa_reprovacao}}@else{{ old('justificativa_reprovacao')}}@endif</textarea>
                                         </div>
                                 </div>
@@ -157,14 +137,13 @@
 
 <script>
   $(document).ready(function(){
-    var justValor = $('.moto').attr('value');
+    var justValor = $('.aprovado').attr('value');
     if(justValor != ''){
       $(".justificativa").removeAttr("readonly");
     }
-    $(".moto").click(function () {
-        var valor = $(this).attr('id')
-        //var valor = document.getElementById('nao');
-        if(valor == "nao") {
+    $(".aprovado").click(function () {
+        var valor = $(this).attr('id');
+        if(valor == "aprovado_nao") {
             $(".justificativa").removeAttr("readonly");
         }else{
             $(".justificativa").attr("readonly",true);

@@ -288,7 +288,6 @@
 
 <script>
     function alteraTipo(tipo) {
-
         if(tipo == 'medicao') {
             $('.equipamentos_medicao').show();
             $('.equipamentos_insumo').hide();
@@ -298,9 +297,25 @@
         }
     }
 
+
     $(document).ready(function(){
-        var tipo_doc = $('.tipo_equipamento').Chilldren().is('checked');
-        console.log(tipo_doc);
+        var tipo_doc = $('#medicao').is('checked');
+        if(tipo_doc == false){
+            $('.equipamentos_medicao').show();
+            $('.equipamentos_insumo').hide();
+        }else{
+            $('.equipamentos_medicao').hide();
+            $('.equipamentos_insumo').show();
+        }
+    })
+
+    $('#manual').on('change', function(){
+        var data = $(this).children('option:selected').val()
+        if(data == "Não"){
+            $('#localizacao_manual').attr('disabled', true);
+        }else{
+            $('#localizacao_manual').removeAttr('disabled', false);
+        }
     })
 </script>
 
