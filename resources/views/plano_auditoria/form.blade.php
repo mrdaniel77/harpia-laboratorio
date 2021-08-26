@@ -69,18 +69,18 @@
               </div>
               <div class="col-5">
                 <div class="form-group">
-                  <label for="setor_id" class="form-label">Nome da organização:</label>
-                  <select required name="setor_id" id="setor_id" class="form-control">
-                    <option value="">Selecione um Responsável</option>
+                  <label for="setor_organizacao" class="form-label">Nome da organização:</label>
+                  <select required name="setor_organizacao" id="setor_organizacao" class="form-control">
+                    <option value="">Selecione um setor</option>
                     @foreach($setores as $item)
-                    <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_id == $item->id) selected @elseif(old('setor_id') == $item->id) selected @endif>{{$item->setor}}
+                    <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_organizacao == $item->id) selected @elseif(old('setor_organizacao') == $item->id) selected @endif>{{$item->setor}}
                     </option>
                     @endforeach
                   </select>
                 </div>
               </div>
               <div class="col-2">
-                <label for="setor_id" class="form-label">Novo Setor:</label>
+                <label for="" class="form-label">Novo Setor:</label>
                 <a href="/setores/novo" class="btn btn-primary">
                   Novo Setor
                   <i class="fas fa-plus"></i>
@@ -102,7 +102,7 @@
               </div>
               <div class="col-4">
                 <div class="form-group">
-                  <label for="email" class="form-label">Avaliação:</label>
+                  <label for="avaliacao" class="form-label">Avaliação:</label>
                   <input type="text" name="avaliacao" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->avaliacao}}@else{{old('avaliacao')}} @endif">
                 </div>
               </div>
@@ -121,7 +121,7 @@
               </div>
               <div class="col-6">
                 <div class="form-group">
-                  <label for="email" class="form-label">Requisitos a serem avaliados:</label>
+                  <label class="form-label">Requisitos a serem avaliados:</label>
                   <input type="text" name="requisitos" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->requisitos}}@else{{old('requisitos')}} @endif">
                 </div>
               </div>
@@ -190,39 +190,151 @@
                         <a class="nav-link" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="false">Avaliador líder</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Profile</a>
+                        <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Avaliador especialista</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Messages</a>
+                        <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Atribuições</a>
                       </li>
                     </ul>
                   </div>
                   <div class="card-body">
                     <div class="tab-content" id="custom-tabs-one-tabContent">
                       <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                        <div>
+                          <h3>Avaliador líder</h3>
+                        </div>
+                        <hr>
                         <div class="row">
-                          <div class="col-5">
+                          <div class="col-6">
                             <div class="form-group">
-                              <label for="colaborador_id" class="form-label">Avaliador líder:</label>
-                              <select required name="colaborador_id" id="colaborador_id" class="form-control">
+                              <label for="avaliador_lider" class="form-label">Avaliador líder:</label>
+                              <select required name="avaliador_lider" id="avaliador_lider" class="form-control">
                                 <option value="">Selecione um avaliador</option>
                                 @foreach($colaboradores_id as $item)
-                                <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->colaborador_id == $item->id) selected @elseif(old('colaborador_id') == $item->id) selected @endif>{{$item->nome}}
+                                <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_lider == $item->id) selected @elseif(old('avaliador_lider') == $item->id) selected @endif>{{$item->nome}}
+                                </option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>                          
+                          <div class="col-6">
+                            <br>
+                            @if(isset($plano_auditoria) && count($plano_auditoria->atribuicoes_lider) > 0)
+                            @foreach ($plano_auditoria->atribuicoes_lider as $item)
+                            <div id="inputFormRow">
+                              <div class="input-group mb-3"> 
+                                <input type="text" name="atribuicoes_lider[]" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off" value="{{ $item->nome }}">
+                                <div class="input-group-append">                
+                                  <button id="removeRow" type="button" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            @endforeach
+                            @else
+                            <div id="inputFormRow">
+                              <div class="input-group mb-3"> 
+                                <input type="text" name="atribuicoes_lider[]" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off" value="">
+                                <div class="input-group-append">                
+                                  <button id="removeRow" type="button" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            @endif
+
+                              <div id="newRow"></div>
+                              <button id="addRow" type="button" class="btn btn-info"> 
+                                <i class="fas fa-plus"></i>
+                                Adicionar</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                        <div>
+                          <h3>Avaliadores especialista</h3>
+                        </div>
+                        <hr>
+                        <div class="row" id="dadosrow">
+                          
+                          <div class="col-6">
+                            <div class="form-group">
+                              <label for="avaliador_especialista" class="form-label">Avaliador especialista:</label>
+                              <select required name="avaliador_especialista[]" id="avaliador_especialista" class="form-control">
+                                <option value="">Selecione um avaliador</option>
+                                @foreach($colaboradores_id as $item)
+                                <option value="{{$item->nome}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_especialista == $item->id) selected @elseif(old('avaliador_especialista') == $item->id) selected @endif>{{$item->nome}}
+                                </option>
+                                @endforeach
+                                
+                                @if(isset($plano_auditoria))
+                                @php
+                                  $lista_ava_especialista = json_decode($plano_auditoria->avaliador_especialista);
+                                @endphp
+                                 @foreach($lista_ava_especialista as $i_ava)
+                                 <option value="{{$i_ava}}" selected >{{$i_ava}}
+                                 </option>
+                                 @endforeach
+
+                              @endif
+
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-5">
+                            <div class="form-group">
+                              <label for="setor_avaliador" class="form-label">Setor:</label>
+                              <select required name="setor_avaliador[]" id="setor_avaliador" class="form-control">
+                                <option value="">Selecione um Setor</option>
+                                @foreach($setores as $item)
+                                <option value="{{$item->setor}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_avaliador == $item->id) selected @elseif(old('setor_avaliador') == $item->id) selected @endif>{{$item->setor}}
                                 </option>
                                 @endforeach
                               </select>
                             </div>
                           </div>
-                          
-                          
+                          <div class="col">
+                            <label for="" class="form-label">Excluir</label>
+                            <div class="input-group-append">                
+                                  <button id="deletaespecialista" type="button" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                          </div>
                         </div>
-
-                      </div>
-                      <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-
+                        <div id="novarow"></div>
+                        <div class="row">
+                              <button id="addNovoAvaliador" type="button" class="btn btn-info"> 
+                                <i class="fas fa-plus"></i>
+                                Adicionar</button>
+                        </div>
                       </div>
                       <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
-
+                        <div>
+                          <h3>Atribuições</h3>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col">
+                            <br>
+                            <div id="atribuicoes">
+                              <div class="input-group mb-3"> 
+                                <input type="text" name="" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off" value="">
+                                <div class="input-group-append">                
+                                  <button id="apagarow" type="button" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                              <div id="rowbranco"></div>
+                              <button id="botarrow" type="button" class="btn btn-info"> 
+                                <i class="fas fa-plus"></i>
+                                Adicionar</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -230,12 +342,140 @@
                 </div>
               </div>
             </div>
-
+            <div align='center'>
+              <h3>Escopo da avaliação</h3>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="item" class="form-label">Item:</label>
+                  <input type="text" name="item" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->item}}@else{{ old('item') }}@endif">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="matriz" class="form-label">Matriz:</label>
+                  <input type="text" name="matriz" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->matriz}}@else{{ old('matriz') }}@endif">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="ensaio" class="form-label">Ensaio:</label>
+                  <input type="text" name="ensaio" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->ensaio}}@else{{ old('ensaio') }}@endif">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="metodo_escopo" class="form-label">Método:</label>
+                  <input type="text" name="metodo_escopo" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->metodo_escopo}}@else{{ old('metodo_escopo') }}@endif">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="setor_escopo" class="form-label">Setor:</label>
+                  <select required name="setor_escopo" id="setor_escopo" class="form-control">
+                    <option value="">Selecione um Setor</option>
+                    @foreach($setores as $item)
+                    <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_escopo == $item->id) selected @elseif(old('setor_escopo') == $item->id) selected @endif>{{$item->setor}}
+                    </option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div align='center'>
+              <h3>Plano da auditoria</h3>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="data_plano" class="form-label">Data:</label>
+                  <input type="date" name="data_plano" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->data_plano}}@else{{old('data_plano')}} @endif">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="atividade" class="form-label">Atividade:</label>
+                  <input type="text" name="atividade" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->atividade}}@else{{ old('atividade') }}@endif">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="processo" class="form-label">Processo:</label>
+                  <input type="text" name="processo" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->processo}}@else{{ old('processo') }}@endif">
+                </div>
+              </div>
+             <div class="col-4">
+                <div class="form-group">
+                  <label for="item_plano" class="form-label">Item:</label>
+                  <input type="text" name="item_plano" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->item_plano}}@else{{ old('item_plano') }}@endif">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="itens_normativos" class="form-label">Itens normativos:</label>
+                  <input type="text" name="itens_normativos" class="form-control" value="@if(isset($plano_auditoria)){{$plano_auditoria->itens_normativos}}@else{{ old('itens_normativos') }}@endif">
+                </div>
+              </div>
+            </div>
+            <div align='center'>
+              <h3>Auditores</h3>
+            </div>
+              <div class="row" id="rowauditores">
+                <div class="col-10">
+                  <div class="form-group">
+                    <label for="auditores" class="form-label">Auditor:</label>
+                    <select required name="auditores" id="auditores" class="form-control">
+                      <option value="">Selecione um auditor</option>
+                      @foreach($colaboradores_id as $item)
+                      <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->auditores == $item->id) selected @elseif(old('auditores') == $item->id) selected @endif>{{$item->nome}}
+                      </option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="col">
+                  <label for="" class="form-label">Excluir</label>
+                  <div class="input-group-append">                
+                        <button id="deletaauditor" type="button" class="btn btn-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                </div>
+              </div>
+              <div id="rowaddauditor"></div>
+              <div class="row">
+                    <button id="addnovoauditor" type="button" class="btn btn-info"> 
+                      <i class="fas fa-plus"></i>
+                      Adicionar</button>
+              </div>
+              <br>
+              <hr>
+              <div class="row">
+                <div class="col-10">
+                  <div class="form-group">
+                    <label for="auditor_lider_plano" class="form-label">Auditor líder:</label>
+                    <select required name="auditor_lider_plano" id="auditor_lider_plano" class="form-control">
+                      <option value="">Selecione um auditor</option>
+                      @foreach($colaboradores_id as $item)
+                      <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->auditor_lider_plano == $item->id) selected @elseif(old('auditor_lider_plano') == $item->id) selected @endif>{{$item->nome}}
+                      </option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div>
             <div class="row">
               <div class="col" align="end">
                 <br>
-                @isset($responsa_auto->id)
-                <a href="/responsa_auto/gerar_pdf/{{ $responsa_auto->id }}" class="btn btn-danger" target="_blank">
+                @isset($plano_auditoria->id)
+                <a href="/plano_auditoria/gerar_pdf/{{ $plano_auditoria->id }}" class="btn btn-danger" target="_blank">
                   Gerar PDF
                   <i class="fas fa-file-pdf"></i>
                 </a>
@@ -295,5 +535,126 @@
 
         });
     });
+  });
+</script>
+<script type="text/javascript">
+  // add row
+  $("#addRow").click(function () {
+      var html = '';
+      html += '<div id="inputFormRow">';
+      html += '<div class="input-group mb-3">';
+      html += '<input type="text" name="atribuicoes_lider[]" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off">';
+      html += '<div class="input-group-append">';
+      html += '<button id="removeRow" type="button" class="btn btn-danger"> <i class="fas fa-trash"></i></button>';
+      html += '</div>';
+      html += '</div>';
+
+      $('#newRow').append(html);
+  });
+
+  // remove row
+  $(document).on('click', '#removeRow', function () {
+      $(this).closest('#inputFormRow').remove();
+  });
+
+  $("#addNovoAvaliador").click(function() {
+    var html = '';
+    html += `<div class="row" id='dadosrow' >
+                          <div class="col-6">
+                            <div class="form-group">
+                              <label for="avaliador_especialista" class="form-label">Avaliador especialista:</label>
+                              <select required name="avaliador_especialista[]" id="avaliador_especialista" class="form-control">
+                                <option value="">Selecione um avaliador</option>
+                                @foreach($colaboradores_id as $item)
+                                <option value="{{$item->nome}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_especialista == $item->id) selected @elseif(old('avaliador_especialista') == $item->id) selected @endif>{{$item->nome}}
+                                </option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-5">
+                            <div class="form-group">
+                              <label for="setor_avaliador" class="form-label">Setor:</label>
+                              <select required name="setor_avaliador[]" id="setor_avaliador" class="form-control">
+                                <option value="">Selecione um Setor</option>
+                                @foreach($setores as $item)
+                                <option value="{{$item->setor}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_avaliador == $item->id) selected @elseif(old('setor_avaliador') == $item->id) selected @endif>{{$item->setor}}
+                                </option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <label for="setor_avaliador" class="form-label">Excluir</label>
+                            <div class="input-group-append">                
+                                  <button id="deletaespecialista" type="button" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </div>
+                          </div>
+                        </div>`;
+  $('#novarow').append(html);
+
+
+  // remove row
+  $(document).on('click', '#deletaespecialista', function () {
+      $(this).closest('#dadosrow').remove();
+  });
+  })
+</script>
+
+<script>
+  
+  $("#botarrow").click(function () {
+      var html = '';
+      html += '<div id="atribuicoes">';
+      html += '<div class="input-group mb-3">';
+      html += '<input type="text" name="" class="form-control m-input" placeholder="Adicionar atribuições" autocomplete="off">';
+      html += '<div class="input-group-append">';
+      html += '<button id="apagarow" type="button" class="btn btn-danger"> <i class="fas fa-trash"></i></button>';
+      html += '</div>';
+      html += '</div>';
+
+      $('#rowbranco').append(html);
+  });
+
+  // remove row
+  $(document).on('click', '#apagarow', function () {
+      $(this).closest('#atribuicoes').remove();
+  });
+</script>
+
+
+<script>
+  $("#addnovoauditor").click(function() {
+    var html = '';
+    html += `<div class="row" id='rowauditores'>
+                <div class="col-10">
+                  <div class="form-group">
+                    <label for="auditores" class="form-label">Auditor:</label>
+                    <select required name="auditores" id="auditores" class="form-control">
+                      <option value="">Selecione um auditor</option>
+                      @foreach($colaboradores_id as $item)
+                      <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->auditores == $item->id) selected @elseif(old('auditores') == $item->id) selected @endif>{{$item->nome}}
+                      </option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="col">
+                  <label for="" class="form-label">Excluir</label>
+                  <div class="input-group-append">                
+                        <button id="deletaauditor" type="button" class="btn btn-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                </div>
+              </div>`;
+  $('#rowaddauditor').append(html);
+});
+
+  // remove row
+  $(document).on('click', '#deletaauditor', function () {
+      $(this).closest('#rowauditores').remove();
   });
 </script>

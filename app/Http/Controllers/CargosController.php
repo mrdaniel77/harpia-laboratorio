@@ -14,6 +14,7 @@ class CargosController extends Controller
         $pesquisa = $request->pesquisa;
         $tipo = $request->tipo;
 
+
         if($tipo == 'exportar') {
             $d = date('d-m-Y-H-m-s');
             $arquivo = 'cargos-'.$d.'.xls';
