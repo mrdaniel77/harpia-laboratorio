@@ -33,7 +33,7 @@ class CreatePlanoAuditoriasTable extends Migration
             $table->unsignedBigInteger('avaliador_lider');
             $table->foreign('avaliador_lider')->references('id')->on('colaboradors');
             $table->text('avaliador_especialista')->nullable();
-            $table->text('especialista_setor')->nullable();
+            $table->text('setor_avaliador')->nullable();
             $table->string('item')->nullable();
             $table->string('matriz')->nullable();
             $table->string('ensaio')->nullable();

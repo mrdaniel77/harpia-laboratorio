@@ -62,8 +62,13 @@ class Plano_auditoriaController extends Controller
         $atribuicoes_lider = $request->atribuicoes_lider;
         unset($request['atribuicoes_lider']);
 
+        
+       
         if($request->avaliador_especialista && count($request->avaliador_especialista) > 0) {
             $request['avaliador_especialista'] = json_encode($request->avaliador_especialista);
+        }
+        if($request->setor_avaliador && count($request->setor_avaliador) > 0) {
+            $request['setor_avaliador'] = json_encode($request->setor_avaliador);
         }
         
         $novas_atribuicoes_lider = [];

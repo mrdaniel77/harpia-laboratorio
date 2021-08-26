@@ -258,25 +258,38 @@
                         </div>
                         <hr>
                         <div class="row" id="dadosrow">
+                          
                           <div class="col-6">
                             <div class="form-group">
                               <label for="avaliador_especialista" class="form-label">Avaliador especialista:</label>
-                              <select required name="avaliador_especialista" id="avaliador_especialista" class="form-control">
+                              <select required name="avaliador_especialista[]" id="avaliador_especialista" class="form-control">
                                 <option value="">Selecione um avaliador</option>
                                 @foreach($colaboradores_id as $item)
-                                <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_especialista == $item->id) selected @elseif(old('avaliador_especialista') == $item->id) selected @endif>{{$item->nome}}
+                                <option value="{{$item->nome}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_especialista == $item->id) selected @elseif(old('avaliador_especialista') == $item->id) selected @endif>{{$item->nome}}
                                 </option>
                                 @endforeach
+                                
+                                @if(isset($plano_auditoria))
+                                @php
+                                  $lista_ava_especialista = json_decode($plano_auditoria->avaliador_especialista);
+                                @endphp
+                                 @foreach($lista_ava_especialista as $i_ava)
+                                 <option value="{{$i_ava}}" selected >{{$i_ava}}
+                                 </option>
+                                 @endforeach
+
+                              @endif
+
                               </select>
                             </div>
                           </div>
                           <div class="col-5">
                             <div class="form-group">
                               <label for="setor_avaliador" class="form-label">Setor:</label>
-                              <select required name="setor_avaliador" id="setor_avaliador" class="form-control">
+                              <select required name="setor_avaliador[]" id="setor_avaliador" class="form-control">
                                 <option value="">Selecione um Setor</option>
                                 @foreach($setores as $item)
-                                <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_avaliador == $item->id) selected @elseif(old('setor_avaliador') == $item->id) selected @endif>{{$item->setor}}
+                                <option value="{{$item->setor}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_avaliador == $item->id) selected @elseif(old('setor_avaliador') == $item->id) selected @endif>{{$item->setor}}
                                 </option>
                                 @endforeach
                               </select>
@@ -553,7 +566,7 @@
                               <select required name="avaliador_especialista[]" id="avaliador_especialista" class="form-control">
                                 <option value="">Selecione um avaliador</option>
                                 @foreach($colaboradores_id as $item)
-                                <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_especialista == $item->id) selected @elseif(old('avaliador_especialista') == $item->id) selected @endif>{{$item->nome}}
+                                <option value="{{$item->nome}}" @if(isset($plano_auditoria) &&$plano_auditoria->avaliador_especialista == $item->id) selected @elseif(old('avaliador_especialista') == $item->id) selected @endif>{{$item->nome}}
                                 </option>
                                 @endforeach
                               </select>
@@ -562,10 +575,10 @@
                           <div class="col-5">
                             <div class="form-group">
                               <label for="setor_avaliador" class="form-label">Setor:</label>
-                              <select required name="setor_avaliador" id="setor_avaliador" class="form-control">
+                              <select required name="setor_avaliador[]" id="setor_avaliador" class="form-control">
                                 <option value="">Selecione um Setor</option>
                                 @foreach($setores as $item)
-                                <option value="{{$item->id}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_avaliador == $item->id) selected @elseif(old('setor_avaliador') == $item->id) selected @endif>{{$item->setor}}
+                                <option value="{{$item->setor}}" @if(isset($plano_auditoria) &&$plano_auditoria->setor_avaliador == $item->id) selected @elseif(old('setor_avaliador') == $item->id) selected @endif>{{$item->setor}}
                                 </option>
                                 @endforeach
                               </select>

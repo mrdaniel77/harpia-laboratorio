@@ -26,7 +26,7 @@ class Plano_auditoria extends Model
         'metodo',
         'avaliador_lider',
         'avaliador_especialista',
-        'especialista_setor',
+        'setor_avaliador',
         'item',
         'matriz',
         'ensaio',
