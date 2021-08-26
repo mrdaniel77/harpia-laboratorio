@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Documento</h1>
+            <h1 class="m-0">Documentos</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -33,6 +33,16 @@
             <a href="/documento/novo" class="btn btn-primary">
               Novo documento 
               <i class="fas fa-plus"></i>
+            </a>
+
+            <a href="/documento/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+              Exportar
+              <i class="fas fa-file-excel"></i>
+            </a>
+
+            <a href="/documento/exportar_pdf?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-danger" target="_blank">
+              Gerar PDF
+              <i class="fas fa-file-pdf"></i>
             </a>
 
             <div class="card-tools">
@@ -59,6 +69,7 @@
                     <th>Código:</th>
                     <th>Localização</th>
                     <th>Documento</th>
+                    <th>Opções</th>
                 </tr>
               </thead>
               @foreach ($documento as $item)
@@ -70,6 +81,7 @@
                     <td>{{ $item->localizacao }}</td>
                     <td>{{ $item->documento}}</td>
                     <td>
+                      
                       <a href="documento/editar/{{ $item->id }}" class="btn btn-warning">
                         <i class="fas fa-edit"></i>
                       </a>

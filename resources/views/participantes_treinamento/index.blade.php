@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0" style="">Participantes do Treinamento: {{ $treinamento->titulo }}</h1>
+            <h1 class="m-0" style="">Participantes do Treinamento: {{ $participantes_treinamento }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -30,9 +30,14 @@
 
         <div class="card">
           <div class="card-header">
-            <a href="/participantes_treinamento/novo?treinamento_id={{ $treinamento->id }}" class="btn btn-primary">
+            <a href="/participantes_treinamento/novo?treinamento_id={{ $participantes_treinamento }}" class="btn btn-primary">
               Novo Participante do Treinamento 
               <i class="fas fa-plus"></i>
+            </a>
+
+            <a href="/participantes_treinamento/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+              Exportar
+              <i class="fas fa-file-excel"></i>
             </a>
 
             <div class="card-tools">

@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">{{ isset($fornecedor) ? 'Editar' : 'Novo ' }}Fornecedor</h1>
+            <h1 class="m-0">{{ isset($fornecedor) ? 'Editar' : 'Novo ' }} Fornecedor</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -141,7 +141,7 @@
         <div class="col-2">
             <div class="form-group">
                 <label for="uf" class="form-label">UF:</label>
-                <input type="text" name="uf" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->uf}}@else{{ old('uf')}}@endif">
+                <input type="text" name="uf" maxlength="2" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->uf}}@else{{ old('uf')}}@endif">
             </div>
         </div>   
     </div>

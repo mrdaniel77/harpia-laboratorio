@@ -2,8 +2,7 @@
 @include('layout.navbar')
 @include('layout.sidebar')
 
-
-<style>
+<script>
   @if(isset($acoes_propostas) && $acoes_propostas->necessario_prorrogacao == 'sim' )
       .novo_prazo{
           display: initial;
@@ -13,7 +12,8 @@
           display: none;
       }
   @endif
-</style> 
+</script>
+ 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -87,7 +87,7 @@
             <select name="responsavel" id="responsavel" class="form-control selecao">
               <option value="">Selecione</option>
                 @foreach ($novos_rncs as $key => $t)
-                  <option value="{{ $t->responsavel }}" @if(isset($acoes_propostas) && $acoes_propostas->novos_rncs == $t)  selected @elseif(old('responsavel') == $t) selected @endif >{{$t->responsavel}}</option> 
+                  <option value="{{ $t->responsavel }}" @if(isset($acoes_propostas) && $acoes_propostas->responsavel == $t->responsavel)  selected @elseif(old('responsavel') == $t->responsavel) selected @endif >{{$t->responsavel}}</option> 
               @endforeach
             </select>
             </div>

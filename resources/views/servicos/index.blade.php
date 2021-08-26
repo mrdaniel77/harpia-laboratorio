@@ -30,8 +30,13 @@
       <div class="card">
         <div class="card-header">
           <a href="/servicos/novo" class="btn btn-primary">
-            Novo serviço 
+            Novo Serviço 
             <i class="fas fa-plus"></i>
+          </a>
+
+          <a href="/servicos/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+            Exportar
+            <i class="fas fa-file-excel"></i>
           </a>
 
           <div class="card-tools">
@@ -56,13 +61,13 @@
                 <tr>
                     <th scope="col">#</th>
                     <th>Descrição</th>
-                    <th>Tipo material</th>
-                    <th>Tipo serviço</th>
-                    <th>Serviço crítico</th>
+                    <th>Tipo Material</th>
+                    <th>Tipo Serviço</th>
+                    <th>Serviço Crítico</th>
                     <th>Ações</th>
                 </tr>
               </thead>
-              @foreach ($servicos as $item)
+              @foreach ($servico as $item)
               <tbody>
                 <tr>
                     <td>{{ $item->id }}</td>
@@ -85,7 +90,7 @@
               @endforeach
           </table>
           <br>
-            @if(count($servicos) < 1)
+            @if(count($servico) < 1)
             <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
               Nenhum registro encontrado!
             </div>
@@ -95,7 +100,7 @@
       </div>
       <div class="row">
         <div class="col">
-          {{ $servicos->links() }}
+          {{ $servico->links() }}
         </div>
       </div>
       

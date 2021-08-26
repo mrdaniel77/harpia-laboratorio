@@ -34,6 +34,10 @@
                 Novas Ações Propostas
               <i class="fas fa-plus"></i>
             </a>
+            <a href="/acoes_propostas/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+              Exportar
+              <i class="fas fa-file-excel"></i>
+            </a>
 
             <div class="card-tools">
               <form action="">
@@ -69,6 +73,7 @@
               <tbody>
                 <tr>
                     <td>{{ $item->id }}</td>
+                    <td>{{ $item->origem }}</td>
                     <td>{{ $item->acao }}</td>
                     <td>{{ $item->responsavel }}</td>
                     <td>{{ $item->prazo }}</td>

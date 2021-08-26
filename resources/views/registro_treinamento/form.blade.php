@@ -82,13 +82,6 @@
                       </div>
                   </div>
             </div>
-            <div class="col-6">
-              <div class="form-group">
-                      <label for="data_final" class="form-label">Data Final:</label>
-                      <input type="date" name="data_final" class="form-control data_final" value="@if(isset($registro_treinamento)){{$registro_treinamento->data_final}}@else{{old("data_final")}}@endif">
-                  </div>
-                  </div>
-                  </div>
         <div class="row">
           <div class="col-12">
           <div class="form-group">
@@ -97,24 +90,21 @@
               </div>
                </div>
               </div>
-    <div class="row">
-      <div class="col" align="end">
-          <br>
-          <button type="submit" class="btn btn-success w-25 hover-shadow">
-                Salvar 
-          <i class="fas fa-save"></i>
-      </button>
+              <div class="col">
+                <button type="submit" class="btn btn-success w-100">
+                    Salvar 
+                    <i class="fas fa-save"></i>
+                </button>
+            </div>
         </div>
-        </div>
-      </form>
     </div>
-    </div>
-            
-    </div>
-    <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-    </div>
-    
-    @include('layout.footer')
+</div>
+</div>
+</div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+                    
+@include('layout.footer')

@@ -33,6 +33,11 @@
               <i class="fas fa-plus"></i>
             </a>
 
+            <a href="/registro_de_ocorrencia/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+              Exportar
+              <i class="fas fa-file-excel"></i>
+            </a>
+
             <div class="card-tools">
               <form action="">
                 <div class="input-group input-group" style="width: 150px;">
@@ -56,12 +61,11 @@
                     <th>Número</th>
                     <th>Origem</th>
                     <th>Data de Abertura</th>
-                    <th>Identificacao do Equipamento</th>
-                    <th>Descrever Correcão</th>
-                    <th>Ocorrencia e um Trabalho NC</th>
-                    <th>Registro de AC n</th>
-                    <th>Parecer Tecnico</th>
-                    <th>Observacões</th>
+                    <th>Descrever Correção</th>
+                    <th>Registro de AC nº</th>
+                    <th>Parecer Técnico</th>
+                    <th>Observações</th>
+                    <th>Opções</th>
                 </tr>
               </thead>
               @foreach ($registro as $item)
@@ -71,9 +75,7 @@
                     <td>{{ $item->numero }}</td>
                     <td>{{ $item->origem }}</td>
                     <td>{{ $item->data_de_abertura}}</td>
-                    <td>{{ $item->identificacao_do_equipamento}}</td>
                     <td>{{ $item->descrever_correcao}}</td>
-                    <td>{{ $item->ocorrencia_e_um_trabalho_NC}}</td>
                     <td>{{ $item->registro_de_AC_n}}</td>
                     <td>{{ $item->parecer_tecnico}}</td>
                     <td>{{ $item->observacoes}}</td>

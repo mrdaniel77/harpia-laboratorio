@@ -6,7 +6,6 @@
         "Documentos" => ["links" => "documento", "icone" => "fas fa-copy" ],
         "Equipamentos" => ["links" => "equipamentos", "icone" => "fas fa-microscope" ],
         "Fornecedores" => ["links" => "fornecedores", "icone" => "fas fa-dolly-flatbed" ],
-        "Listra Mestra" => ["links" => "lista_mestras", "icone" => "fas fa-clipboard-list" ],
         "Serviços" => ["links" => "servicos", "icone" => "fas fa-toolbox" ],
         "Setores" => ["links" => "setores", "icone" => "fas fa-building" ],
         "Usuários" => ["links" => "user", "icone" => "fas fa-user" ]

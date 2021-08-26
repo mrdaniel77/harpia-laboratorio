@@ -12,19 +12,82 @@ class AnaliseCriticaController extends Controller
 
 	public function index(Request $request) 
 	{
+        $colaboradores = Colaborador::select('id','nome')->get();
+
 		$pesquisa = $request->pesquisa;
-		
-		if($pesquisa != '') {
-			$analise_criticas = Analise_critica::with('colaborador')
-								->where('metodos_definidos', 'like', "%".$pesquisa."%")
-								->orWhereHas('colaborador', function($query) use ($pesquisa){$query->where('nome','like', "%".$pesquisa."%");})
-								->paginate(1000);
-		} else {
-			$analise_criticas = Analise_critica::
-			with('colaborador')->paginate(10);
-		}
-		return view('analise_critica.index', compact('analise_criticas','pesquisa'));
-	} 
+		$tipo = $request->tipo;
+
+        if($tipo == 'exportar') {
+            $d = date('d-m-Y-H-m-s');
+            $arquivo = 'analise_critica-'.$d.'.xls';
+            // Configurações header para forçar o download
+            header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+            header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+            header ("Cache-Control: no-cache, must-revalidate");
+            header ("Pragma: no-cache");
+            //header ("Content-type: application/x-msexcel; charset=UTF-8");
+            header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+            header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+            header ("Content-Description: PHP Generated Data" );
+            echo "\xEF\xBB\xBF"; //UTF-8 BOM
+
+        }
+
+        if($pesquisa != '' && $tipo != 'exportar') {
+            $analise_critica = Analise_critica::where('colaborador_id', 'like', "%".$pesquisa."%")
+                                               ->orWhere('metodos_definidos', 'like', "%".$pesquisa."%")
+                                               ->orWhere('pessoal_qualificado', 'like', "%".$pesquisa."%")
+                                               ->orWhere('capacidade_recursos', 'like', "%".$pesquisa."%")->paginate(1000);
+
+        } else if($pesquisa != '' && $tipo == 'exportar') {
+            $analise_critica = Analise_critica::where('colaborador_id', 'like', "%".$pesquisa."%")
+                                                ->orWhere('metodos_definidos', 'like', "%".$pesquisa."%")
+                                                ->orWhere('pessoal_qualificado', 'like', "%".$pesquisa."%")
+                                                ->orWhere('capacidade_recursos', 'like', "%".$pesquisa."%")->all();
+
+            return view('analise_critica.exportar', compact('analise_critica', 'colaboradores'));
+        } else if($tipo == 'exportar') {
+            $analise_critica = Analise_critica::all();
+            return view('analise_critica.exportar', compact('analise_critica', 'colaboradores'));
+
+        }else{
+            $analise_critica = Analise_critica::paginate(10);
+        }
+
+
+
+        if($request->is('api/analise_critica')){
+            return response()->json([$analise_critica],200);
+        }else{
+            return view('analise_critica.index', compact('analise_critica','pesquisa'));
+        }
+    } 
+    public function exportar(Request $request) {
+        $pesquisa = $request->pesquisa;
+         
+        $d = date('d-m-Y-H-m-s');
+        $arquivo = 'analise_critica-'.$d.'.xls';
+        // Configurações header para forçar o download
+        header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+        header ("Cache-Control: no-cache, must-revalidate");
+        header ("Pragma: no-cache");
+        header ("Content-type: application/vnd.ms-excel; charset=UTF-8");
+        header ("Content-Disposition: attachment; filename=\"{$arquivo}\"" );
+        header ("Content-Description: PHP Generated Data" );
+        echo "\xEF\xBB\xBF";
+
+
+        if($pesquisa != '') {
+            $analise_critica = Analise_critica::where('colaborador_id', 'like', "%".$pesquisa."%")
+                                                ->orWhere('metodos_definidos', 'like', "%".$pesquisa."%")
+                                                ->orWhere('pessoal_qualificado', 'like', "%".$pesquisa."%")
+                                                ->orWhere('capacidade_recursos', 'like', "%".$pesquisa."%")->get();
+        } else  {
+            $analise_critica = Analise_critica::all();
+        }
+        return view('analise_critica.exportar', compact('analise_critica'));
+    } 
 	public function novo() {
 		$colaboradores = Colaborador::select('id','nome')->get();
 		return view('analise_critica.form', compact('colaboradores'));

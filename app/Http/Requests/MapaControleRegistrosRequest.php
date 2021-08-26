@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ListaMestraRequest extends FormRequest
+class MapaControleRegistrosRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,17 @@ class ListaMestraRequest extends FormRequest
     {
         return [
                
-                'tipo' => 'required',
-                'codigo' => 'required'
-        ];
+            'codigo' => 'required',
+            'responsavel' => 'required',
+            'data' => 'required'
+    ];
     }
     public function messages()
     {
         return [
-            'tipo.required' => 'O tipo é obrigatório',
-            'codigo.required' => 'O código é obrigatório'
+            'codigo.required' => 'O código é obrigatório',
+            'responsavel.required' => 'o Responsável é obrigatório',
+            'data.required' => 'A Data é obrigatória'
         ];
     }
 }

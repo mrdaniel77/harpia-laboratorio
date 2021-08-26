@@ -33,6 +33,11 @@
               <i class="fas fa-plus"></i>
             </a>
 
+            <a href="/procedimento/exportar?pesquisa=<?php echo Request::get('pesquisa'); ?>" class="btn btn-success" target="_blank">
+              Exportar
+              <i class="fas fa-file-excel"></i>
+            </a>
+
             <div class="card-tools">
               <form action="">
                 <div class="input-group input-group" style="width: 150px;">
@@ -58,6 +63,7 @@
                     <th>Analista</th>
                     <th>Lote</th>
                     <th>Responsável</th>
+                    <th>Ações</th>
                 </tr>
               </thead>
               @foreach ($procedimento as $item)

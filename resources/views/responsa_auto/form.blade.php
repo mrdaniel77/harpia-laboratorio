@@ -10,11 +10,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">{{ isset($responsa_auto) ? 'Editar' : 'Novo' }} Responsabilidades e autorizações</h1>
+            <h1 class="m-0">{{ isset($responsa_auto) ? 'Editar' : 'Novo' }} Responsabilidades e Autorizações</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/responsa_auto">Responsabilidades e autorizações</a></li>
+            <li class="breadcrumb-item"><a href="/responsa_auto">Responsabilidades e Autorizações</a></li>
             <li class="breadcrumb-item active">{{ isset($responsa_auto) ? 'Editar' : 'Novo' }}</li>
           </ol>
         </div><!-- /.col -->
@@ -35,7 +35,7 @@
               @isset($responsa_auto->id)
              
               <a href="/responsa_auto/novo" class="btn btn-primary">
-                Nova Responsabilidades e autorizações
+                Nova Responsabilidades e Autorizações
                 <i class="fas fa-plus"></i>
               </a> 
               @endisset

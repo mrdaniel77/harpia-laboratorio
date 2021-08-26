@@ -56,7 +56,10 @@
               Novo documento 
               <i class="fas fa-plus"></i>
             </a>
+
                 <div class="col card-body">
+
+                    <input type="hidden" name="id" value="@isset($documento){{$documento->id}}@endisset">
 
                     <form action="/documento/salvar" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -197,6 +200,16 @@
      
 @include('layout.footer')
 <script>
+    $(document).ready(function(){
+        var tipo_doc = $('#interno').is('checked');
+        if(tipo_doc == false){
+            $('.documentos_internos').show();
+            $('.documentos_externos').hide();
+        } else {
+            $('.documentos_internos').hide();
+            $('.documentos_externos').show();
+        }
+    })
     function alteraTipo(tipo) {
 
         if(tipo == 'interno') {
@@ -207,11 +220,4 @@
             $('.documentos_externos').show();
         }
     }
-
-    $(document).ready(function(){
-        var tipo_doc = $('.tipo_documento').Chilldren().is('checked');
-        console.log(tipo_doc);
-    })
-    
-
 </script>

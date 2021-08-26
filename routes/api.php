@@ -26,6 +26,7 @@ use App\Http\Controllers\NovoRncController;
 use App\Http\Controllers\InspecaoRecebidosController;
 use App\Http\Controllers\C_temperaturaController;
 use App\Http\Controllers\AcoesPropostasController;
+use App\Http\Controllers\MapaControleRegistrosController;
 
 Route::post('/logarApp', [AutenticacaoController::class, 'logarApp'])->name('logarApp');
 
@@ -66,6 +67,16 @@ Route::get('/setores', [SetoresController::class, 'index'])->name('setores');
 Route::get('/setores/novo', [SetoresController::class, 'novo'])->name('setores.novo');
 Route::get('/setores/deletar/{id}', [SetoresController::class, 'deletar'])->name('setores.deletar');
 Route::post('/setores/salvar', [SetoresController::class, 'salvar'])->name('setores.salvar');
+
+Route::get('/mapa_controle', [MapaControleRegistrosController::class, 'index'])->name('mapa_controle');
+Route::get('/mapa_controle/novo', [MapaControleRegistrosController::class, 'novo'])->name('mapa_controle.novo');
+Route::get('/mapa_controle/deletar/{id}', [MapaControleRegistrosController::class, 'deletar'])->name('mapa_controle.deletar');
+Route::post('/mapa_controle/salvar', [MapaControleRegistrosController::class, 'salvar'])->name('mapa_controle.salvar');
+
+Route::get('/acoes_propostas', [AcoesPropostasController::class, 'index'])->name('acoes_propostas');
+Route::get('/acoes_propostas/novo', [AcoesPropostasController::class, 'novo'])->name('acoes_propostas.novo');
+Route::get('/acoes_propostas/deletar/{id}', [AcoesPropostasController::class, 'deletar'])->name('acoes_propostas.deletar');
+Route::post('/acoes_propostas/salvar', [AcoesPropostasController::class, 'salvar'])->name('acoes_propostas.salvar');
 
 Route::get('/user', [UserController::class, 'index'])->name('user');
 Route::get('/user/deletar/{id}', [UserController::class, 'deletar'])->name('user.deletar');
