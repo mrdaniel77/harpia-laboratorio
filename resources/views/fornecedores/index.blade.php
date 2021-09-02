@@ -53,6 +53,7 @@
               </form>
             </div>
           </div>
+          
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <table class="table table-hover text-nowrap table-bordered ">
@@ -62,6 +63,7 @@
                   
                   <th>Tipo</th>
                   <th>Cnpj</th>
+
                   <th>Razão Social</th>
                   <th>Telefone</th>
                   <th>E-mail</th>
@@ -69,6 +71,7 @@
                 </tr>
               </thead>
               @foreach ($fornecedor as $item)
+
               <tbody>
                 <tr>
                     <td>{{ $item->id }}</td>
@@ -89,12 +92,14 @@
               </tbody>
               @endforeach
             </table>
+
             <br>
             @if(count($fornecedor) < 1)
             <div class="alert alert-info" style="margin-left: 61px; margin-right: 61px;">
               Nenhum registro encontrado!
             </div>
             @endif
+
           </div>
           <!-- /.card-body -->
         </div>
@@ -105,7 +110,7 @@
   </div>
 
   <!-- /.row (main row) -->
-</div><!-- /.container-fluid -->
+</div><!-- /.container-fl uid -->
 </section>
 <!-- /.content -->
 </div>

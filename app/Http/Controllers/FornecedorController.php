@@ -10,6 +10,7 @@ class FornecedorController extends Controller
 {
     public $tipos = ['Serviço', 'Produto' ];
 
+
     public function index(Request $request) {
         $pesquisa = $request->pesquisa;     
         $tipo = $request->tipo;
@@ -77,6 +78,7 @@ class FornecedorController extends Controller
 
 
         if($pesquisa != '') {
+
             $fornecedor = Fornecedor::where('tipo', 'like', "%".$pesquisa."%")
                                     ->orWhere('cnpj', 'like', "%".$pesquisa."%")
                                     ->orWhere('razao_social', 'like', "%".$pesquisa."%")
@@ -84,6 +86,7 @@ class FornecedorController extends Controller
                                     ->orWhere('email', 'like', "%".$pesquisa."%")->get();
         } else  {
             $fornecedor = Fornecedor::all();
+
         }
         
         return view('fornecedores.exportar', compact('fornecedor'));

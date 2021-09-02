@@ -10,12 +10,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">{{ isset($fornecedor) ? 'Editar' : 'Novo ' }} Fornecedor</h1>
+
+            <h1 class="m-0">{{ isset($fornecedor) ? 'Editar ' : 'Novo ' }}Fornecedor</h1>
+
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/fornecedores">Fornecedores</a></li>
-            <li class="breadcrumb-item active">{{ isset($fornecedor) ? 'Editar' : 'Novo' }}</li>
+            <li class="breadcrumb-item active">{{ isset($fornecedor) ? 'Editar ' : 'Novo' }}</li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -128,14 +130,14 @@
     <div class="row">
         <div class="col-5">
             <div class="form-group">
-                <label for="cidade" class="form-label">Cidade:</label>
-                <input type="text" name="cidade" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->cidade}}@else{{ old('cidade')}}@endif">
+                <label for="bairro" class="form-label">Bairro:</label>
+                <input type="text" name="bairro" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->bairro}}@else{{ old('bairro')}}@endif">
             </div>
         </div>
         <div class="col-5">
             <div class="form-group">
-                <label for="bairro" class="form-label">Bairro:</label>
-                <input type="text" name="bairro" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->bairro}}@else{{ old('bairro')}}@endif">
+                <label for="cidade" class="form-label">Cidade:</label>
+                <input type="text" name="cidade" class="form-control"value="@if(isset($fornecedor)){{$fornecedor->cidade}}@else{{ old('cidade')}}@endif">
             </div>
         </div>
         <div class="col-2">
@@ -146,6 +148,12 @@
         </div>   
     </div>
     <div class="row">
+        <div class="col ">
+            <a href="/fornecedores/novo" class="btn btn-primary">
+                Novo fornecedor 
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
         <div class="col" align="end">
             <button type="submit" class="btn btn-success w-25 hover-shadow">
                 Salvar 
@@ -154,9 +162,7 @@
         </div>
     </div>
   </form>
-
-</div>
-         
+</div>         
 </div>
 <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
